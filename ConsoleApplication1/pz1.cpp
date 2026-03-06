@@ -40,7 +40,7 @@ void task2_1() {
     if (z < 0) {
         x = f1(z);
     }
-    else if (0 <= z <= 8) {
+    else if (z >= 0 && z <= 8) {
         x = f2(z);
     }
     else if (z > 8) {
