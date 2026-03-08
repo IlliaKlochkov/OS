@@ -1,4 +1,4 @@
-﻿// імпортуємо бібліотеки
+// імпортуємо бібліотеки
 #include <iostream> // для вводу/виводу
 #include <math.h> // для математичних обчислен по типу: cos, tan, etc.
 #include <windows.h> // ця для переведення консолі на UTF-8
@@ -24,8 +24,8 @@ void task1() {
 // винесені функції для обрахунків по заданим варіантом формулам
 double f(double x) { return tan(x) - 4 * pow(x, 3); }
 double f1(double z) { return 1.0 / pow(cos(z), 2); }
-double f2(double z) { return z - log(std::abs(z)); } 
-double f3(double z) { return tan(z + 1.0 / z); }     
+double f2(double z) { return z - log(std::abs(z)); }
+double f3(double z) { return tan(z + 1.0 / z); }
 
 
 void task2_1() {
@@ -69,7 +69,7 @@ void task2_2() {
     printf("2 - гіпотенуза b\n");
     printf("3 - висота h\n");
     printf("4 - площа S\n");
-    
+
     // ввід для вибору в меню
     printf("Введіть номер відомого елемента (1-4): ");
     std::cin >> choice;

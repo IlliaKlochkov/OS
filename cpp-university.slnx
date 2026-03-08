@@ -1,0 +1,10 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Labs/" />
+  <Folder Name="/Practices/">
+    <Project Path="Practices/pz1/pz1.vcxproj" Id="b3f9f128-c78a-44c0-bc9f-68542fec7654" />
+  </Folder>
+</Solution>
