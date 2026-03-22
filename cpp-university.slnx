@@ -7,5 +7,6 @@
   <Folder Name="/Practices/">
     <Project Path="Practices/pz1/pz1.vcxproj" Id="b3f9f128-c78a-44c0-bc9f-68542fec7654" />
     <Project Path="Practices/pz2/pz2.vcxproj" Id="3ab820d3-e61e-457e-9361-49c00d0f21bf" />
+    <Project Path="Practices/pz3/pz3.vcxproj" Id="c57917b2-8902-4671-b9b5-318414ab1b8c" />
   </Folder>
 </Solution>
