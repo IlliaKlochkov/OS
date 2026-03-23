@@ -1,6 +1,8 @@
-﻿#include <iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 #include <math.h>
 #include <windows.h>
+#include <cstring>
 
 using namespace std;
 
@@ -15,7 +17,6 @@ void printTaskTitle(double task_num) {
         printf("\n=== ЗАВДАННЯ %.1f: ===\n", task_num);
     }
 }
-
 
 // ==========================================
 // Завдання 1
@@ -78,7 +79,6 @@ void fillArray(int arr[], int size) {
     }
 }
 
-
 // "красивий" вивід масиву в консоль
 void printArray(int arr[], int size) {
     for (int i = 0; i < size; i++) {
@@ -88,7 +88,6 @@ void printArray(int arr[], int size) {
 
     cout << "\n";
 }
-
 
 void processArray(int arr[], int& size) {
     int newSize = 0;
@@ -102,7 +101,6 @@ void processArray(int arr[], int& size) {
     
     size = newSize;
 }
-
 
 void runTask2_1() {
     int n, arr[MAX_SIZE];
@@ -122,7 +120,6 @@ void runTask2_1() {
     cout << "\n";
 }
 
-
 // ==========================================
 // Завдання 2.2
 // ==========================================
@@ -134,7 +131,6 @@ void fillMatrix(int mat[MAX_SIZE][MAX_SIZE], int rows, int cols) {
             mat[i][j] = rand() % 100 - 50;
 }
 
-
 // "красивий" вивід 
 void printMatrix(int mat[MAX_SIZE][MAX_SIZE], int rows, int cols) {
     for (int i = 0; i < rows; i++) {
@@ -144,7 +140,6 @@ void printMatrix(int mat[MAX_SIZE][MAX_SIZE], int rows, int cols) {
         cout << "\n";
     }
 }
-
 
 void sortColumnsByFirstRow(int mat[MAX_SIZE][MAX_SIZE], int rows, int cols) {
     for (int j = 0; j < cols - 1; j++) {
@@ -159,7 +154,6 @@ void sortColumnsByFirstRow(int mat[MAX_SIZE][MAX_SIZE], int rows, int cols) {
         }
     }
 }
-
 
 void runTask2_2() {
     int r, c; // r - rows, c - columns 
@@ -183,40 +177,57 @@ void runTask2_2() {
     cout << "\n";
 }
 
-
 // ==========================================
 // Завдання 3
 // ==========================================
 
 struct Student {
-    string name;
+    char* name;
     int kurs;
     float rating;
 };
 
-
-// функція для створення struct Student
+// функція для створення одного студента
 Student make_student() {
     Student s;
+    char temp[100];
+
     cout << "Ім'я студента: ";
-    cin >> s.name; 
+    cin >> temp;
+
+    s.name = new char[strlen(temp) + 1];
+    strcpy(s.name, temp);
 
     cout << "Курс: ";
     cin >> s.kurs;
 
     cout << "Рейтинг: ";
     cin >> s.rating;
-
+	cout << "\n";
     return s;
 }
 
-
-// функція для виводу Student
+// функція для виводу одного студента
 void print_student(const Student& s) {
-    printf("Ім'я: %-10s | Курс: %d | Рейтинг: %.2f\n", s.name.c_str(), s.kurs, s.rating);
+    printf("Ім'я: %-10s | Курс: %d | Рейтинг: %.2f\n",
+        s.name, s.kurs, s.rating);
 }
 
+// копіювання одного студента
+void copyStudent(Student& dest, const Student& src) {
+    dest.name = new char[strlen(src.name) + 1];
+    strcpy(dest.name, src.name);
+    dest.kurs = src.kurs;
+    dest.rating = src.rating;
+}
 
+// звільнення пам’яті одного студента
+void freeStudent(Student& s) {
+    delete[] s.name;
+    s.name = nullptr;
+}
+
+// заповнення динамічного масиву студентів
 void fillStudentArray(Student* arr, int size) {
     for (int i = 0; i < size; i++) {
         printf("Студент №%d:\n", i + 1);
@@ -224,84 +235,128 @@ void fillStudentArray(Student* arr, int size) {
     }
 }
 
-
-// "красивий" вивід 
+// вивід масиву студентів
 void printStudentArray(Student* arr, int size) {
-    if (!arr || size == 0) {
-        cout << "Масив порожній.\n";
+    if (!arr || size <= 0) {
+        cout << "Масив студентів порожній.\n";
         return;
     }
+
     for (int i = 0; i < size; i++) {
         print_student(arr[i]);
     }
 }
 
-
+// пошук студентів, у яких рейтинг менше 3
 Student* findLowRatingStudents(Student* arr, int size, int& newSize) {
     newSize = 0;
 
-    // визначаємо розмір масиву для зберігання студентів з рейтингом < 3.0
+    // спочатку визначаємо, скільки студентів задовольняє умову
     for (int i = 0; i < size; i++) {
-        if (arr[i].rating < 3.0) newSize++;
+        if (arr[i].rating < 3.0) {
+            newSize++;
+        }
     }
 
-    if (newSize == 0) return nullptr;
+    // якщо таких студентів немає - повертаємо nullptr
+    if (newSize == 0) {
+        return nullptr;
+    }
 
     Student* result = new Student[newSize];
     int j = 0;
+
+    // копіюємо тільки потрібних студентів у новий масив
     for (int i = 0; i < size; i++) {
         if (arr[i].rating < 3.0) {
-            result[j] = arr[i];
+            copyStudent(result[j], arr[i]);
             j++;
         }
     }
+
     return result;
 }
 
+// звільнення пам’яті динамічного масиву студентів
+void freeStudentArray(Student* arr, int size) {
+    if (!arr) return;
 
+    for (int i = 0; i < size; i++) {
+        freeStudent(arr[i]);
+    }
+
+    delete[] arr;
+}
+
+// створення динамічного масиву рядків
 string* createStringArray(int n) {
+    if (n <= 0) {
+        return nullptr;
+    }
+
     string* arr = new string[n];
 
     for (int i = 0; i < n; i++) {
-        printf("Введіть рядок %d: ", i + 1);
+        cout << "Введіть рядок " << i + 1 << ": ";
         cin >> arr[i];
     }
+
     return arr;
 }
 
-
+// вивід масиву рядків
 void printStringArray(string* arr, int n) {
     if (!arr || n <= 0) {
-        cout << "Масив порожній.\n";
+        cout << "Масив рядків порожній.\n";
         return;
     }
+
     for (int i = 0; i < n; i++) {
-        cout << "[" << i << "]: " << arr[i] << endl;
+        cout << "[" << i + 1 << "]: " << arr[i] << endl;
     }
 }
 
-
+// видалення K рядків з кінця масиву
 void deleteKRowsFromEnd(string*& arr, int& n, int k) {
-    if (n <= 0 || k <= 0) return;
-    if (k >= n) {
+    // перевірка на порожній масив
+    if (!arr || n <= 0) {
+        cout << "Помилка: масив рядків порожній.\n";
+        return;
+    }
+
+    // K має бути додатним
+    if (k <= 0) {
+        cout << "Помилка: кількість рядків K має бути більшою за 0.\n";
+        return;
+    }
+
+    // якщо K більше за кількість рядків
+    if (k > n) {
+        cout << "Помилка: кількість рядків для видалення більша за розмір масиву.\n";
+        return;
+    }
+
+    int newSize = n - k;
+
+    // якщо після видалення масив стане порожнім
+    if (newSize == 0) {
         delete[] arr;
         arr = nullptr;
         n = 0;
         return;
     }
 
-    int newSize = n - k;
     string* newArr = new string[newSize];
 
+    // копіюємо тільки ті рядки, які залишаються
     for (int i = 0; i < newSize; i++) {
         newArr[i] = arr[i];
     }
 
-    delete[] arr;    
-    arr = newArr;    
-    n = newSize;     
+    delete[] arr;
+    arr = newArr;
+    n = newSize;
 }
-
 
 void runTask3() {
     int n;
@@ -311,28 +366,39 @@ void runTask3() {
 
     printTaskTitle(3);
 
+    // ---------------------------
+    // Частина 1. Робота зі студентами
+    // ---------------------------
     cout << "Кількість студентів: ";
     cin >> n;
+
+    if (n <= 0) {
+        cout << "Помилка: кількість студентів має бути більшою за 0.\n";
+        return;
+    }
 
     Student* students = new Student[n];
     fillStudentArray(students, n);
 
-    cout << "\nСписок студентів:\n";
+    cout << "\nПочатковий список студентів:\n";
     printStudentArray(students, n);
 
     Student* filtered = findLowRatingStudents(students, n, lowRatingCount);
 
     if (filtered == nullptr) {
-        cout << "\nСтудентів з рейтингом < 3 не знайдено.\n";
+        cout << "\nСтудентів з рейтингом менше 3 не знайдено.\n";
     }
     else {
-        cout << "\nСтуденти з рейтингом < 3:\n";
+        cout << "\nСтуденти з рейтингом менше 3:\n";
         printStudentArray(filtered, lowRatingCount);
-        delete[] students;
     }
 
-    cout << "\nКількість рядків у матриці: ";
+    // ---------------------------
+    // Частина 2. Робота з масивом рядків
+    // ---------------------------
+    cout << "\nКількість рядків у масиві: ";
     cin >> strCount;
+
     string* stringArr = createStringArray(strCount);
 
     cout << "\nПочатковий масив рядків:\n";
@@ -340,17 +406,17 @@ void runTask3() {
 
     cout << "\nСкільки рядків видалити з кінця? ";
     cin >> k;
+
     deleteKRowsFromEnd(stringArr, strCount, k);
 
     cout << "\nРезультат обробки рядків:\n";
     printStringArray(stringArr, strCount);
 
-    delete[] students;
-    if (strCount > 0) {
-        delete[] stringArr;
-    }
+    // звільнення пам’яті
+    freeStudentArray(students, n);
+    freeStudentArray(filtered, lowRatingCount);
+    delete[] stringArr;
 }
-
 
 // ===============================
 // |⣿⣿⣿⣿⣿⣿⣿⣿⣻⣿⣿⣿⡿⢿⡿⠿⠿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⡿⣿|
