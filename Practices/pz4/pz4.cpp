@@ -6,11 +6,10 @@
 using namespace std;
 
 struct Buyer {
-    char fullname[30];
+    char fullname[100];
     char address[100];
     char phone[20];
     char card_number[20];
-
 
     // статичний метод щоб зручно створювати елементи
     static Buyer create() {
@@ -48,7 +47,6 @@ struct Buyer {
         return arr;
     }
 };
-
 
 // ==========================================
 // Стиль C
@@ -183,7 +181,7 @@ void addToFile_CPP(const char* filename, const char* filename_temp, Buyer* newBu
         return;
     }
 
-    ofstream temp(filename_temp, ios::binary);;
+    ofstream temp(filename_temp, ios::binary);
 
     Buyer b;
     int index = 0;
@@ -202,7 +200,7 @@ void addToFile_CPP(const char* filename, const char* filename_temp, Buyer* newBu
     }
 
     if (!is_added) {
-        temp.write((char*)&b, sizeof(Buyer) * n);
+        temp.write((char*)newBuyers, sizeof(Buyer) * n);
     }
 
     file.close();
@@ -261,7 +259,6 @@ void printFile_CPP(const char* filename) {
 
     file.close();
 }
-
 
 // ===============================
 // |⣿⣿⣿⣿⣿⣿⣿⣿⣻⣿⣿⣿⡿⢿⡿⠿⠿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⡿⣿|
