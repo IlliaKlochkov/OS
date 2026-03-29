@@ -434,7 +434,7 @@ int _tmain()
     printEncodingInfo();
     printMacroInfo();
 
-    printSeparator(_T("4. Формування ANSI-масиву з ПІБ"));
+    printSeparator(_T("3. Формування ANSI-масиву з ПІБ"));
 
     vector<wstring> familyWideSource = {
         L"Кулик Євген Вадимович",
@@ -456,7 +456,7 @@ int _tmain()
         printf("[%d] %s\n", (int)(i + 1), familyAnsi[i].c_str());
     }
 
-    printSeparator(_T("5. Перетворення ANSI -> UNICODE"));
+    printSeparator(_T("4. Перетворення ANSI -> UNICODE"));
 
     vector<wstring> familyUnicode;
     for (const auto& s : familyAnsi)
@@ -470,17 +470,17 @@ int _tmain()
     printWideWithWcout(familyUnicode);
     printWideWithMessageBox(familyUnicode);
 
-    printSeparator(_T("6. Сортування Unicode-масиву через qsort"));
+    printSeparator(_T("5. Сортування Unicode-масиву через qsort"));
 
     vector<wstring> qsorted = qsort(familyUnicode);
     printWideWithTprintf(qsorted);
 
-    printSeparator(_T("7. Сортування Unicode-масиву через std::sort"));
+    printSeparator(_T("6. Сортування Unicode-масиву через std::sort"));
 
     vector<wstring> stdsorted = stdsort(familyUnicode);
     printWideWithTprintf(stdsorted);
 
-    printSeparator(_T("8. Зворотне перетворення UNICODE -> ANSI"));
+    printSeparator(_T("7. Зворотне перетворення UNICODE -> ANSI"));
 
     vector<string> backToAnsi;
     for (const auto& ws : stdsorted)
