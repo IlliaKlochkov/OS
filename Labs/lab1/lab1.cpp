@@ -15,162 +15,126 @@
 
 using namespace std;
 
+
+enum class FileEncoding
+{
+    ANSI_TEXT,
+    UNICODE_UTF16_LE
+};
+
+
 // ======================================================
 // Допоміжні функції
 // ======================================================
 
-void PrintSeparator(const TCHAR* title)
+void setupLocale()
 {
-    _tprintf(TEXT("\n==================================================\n"));
-    _tprintf(TEXT("%s\n"), title);
-    _tprintf(TEXT("==================================================\n"));
-}
-
-void SetupLocale()
-{
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
-
-    if (_tsetlocale(LC_ALL, TEXT("Ukrainian")) == NULL)
+    if (_tsetlocale(LC_ALL, _T("Ukrainian")) == NULL)
     {
-        _tprintf(TEXT("Не вдалося встановити локаль Ukrainian.\n"));
+        _tprintf(_T("Не вдалося встановити локаль Ukrainian.\n"));
     }
 
     setlocale(LC_ALL, "Ukrainian");
 }
 
-void PrintEncodingInfo()
+void printSeparator(const TCHAR* title)
 {
-    PrintSeparator(TEXT("1. Перевірка типу кодування за замовчуванням"));
-
-    _tprintf(TEXT("sizeof(TCHAR) = %d байт(и)\n"), (int)sizeof(TCHAR));
-
-    if (sizeof(TCHAR) == sizeof(char))
-        _tprintf(TEXT("Режим за замовчуванням: ANSI / ASCII-подібний (multibyte)\n"));
-    else if (sizeof(TCHAR) == sizeof(wchar_t))
-        _tprintf(TEXT("Режим за замовчуванням: UNICODE\n"));
-    else
-        _tprintf(TEXT("Невідомий режим.\n"));
+    _tprintf(_T("\n==================================================\n"));
+    _tprintf(_T("%s\n"), title);
+    _tprintf(_T("==================================================\n"));
 }
 
-void PrintWideTextToConsole(const wstring& text)
+void printEncodingInfo()
 {
+    printSeparator(_T("1. Перевірка типу кодування за замовчуванням"));
+
+    _tprintf(_T("sizeof(TCHAR) = %d байт(и)\n"), (int)sizeof(TCHAR));
+
+    if (sizeof(TCHAR) == sizeof(char))
+        _tprintf(_T("Режим за замовчуванням: ANSI / ASCII-подібний (multibyte)\n"));
+    else if (sizeof(TCHAR) == sizeof(wchar_t))
+        _tprintf(_T("Режим за замовчуванням: UNICODE\n"));
+    else
+        _tprintf(_T("Невідомий режим.\n"));
+}
+
+void printWideTextToConsole(const wstring& text)
+{
+    fflush(stdout); // Відновлено очищення буфера
     int oldMode = _setmode(_fileno(stdout), _O_U16TEXT);
     wcout << text << endl;
+    wcout.flush();  // Відновлено очищення буфера
     _setmode(_fileno(stdout), oldMode);
 
     SetConsoleOutputCP(1251);
 }
 
-void PrintMacroInfo()
+void printMacroInfo()
 {
-    PrintSeparator(TEXT("2. Перевірка макросів командного рядка"));
+    printSeparator(_T("2. Перевірка макросів командного рядка"));
 
-#ifdef UNICODE
-    _tprintf(TEXT("Макрос UNICODE: ВИЗНАЧЕНО\n"));
-#else
-    _tprintf(TEXT("Макрос UNICODE: НЕ ВИЗНАЧЕНО\n"));
-#endif
+    #ifdef UNICODE
+        _tprintf(_T("Макрос UNICODE: ВИЗНАЧЕНО\n"));
+    #else
+        _tprintf(_T("Макрос UNICODE: НЕ ВИЗНАЧЕНО\n"));
+    #endif
 
-#ifdef _UNICODE
-    _tprintf(TEXT("Макрос _UNICODE: ВИЗНАЧЕНО\n"));
-#else
-    _tprintf(TEXT("Макрос _UNICODE: НЕ ВИЗНАЧЕНО\n"));
-#endif
+    #ifdef _UNICODE
+        _tprintf(_T("Макрос _UNICODE: ВИЗНАЧЕНО\n"));
+    #else
+        _tprintf(_T("Макрос _UNICODE: НЕ ВИЗНАЧЕНО\n"));
+    #endif
 }
 
-void ShowProjectModeReminder()
-{
-    PrintSeparator(TEXT("3. Нагадування щодо перемикання режиму в Visual Studio"));
-    _tprintf(TEXT("ASCII (Multibyte): Properties -> General -> Character Set -> Use Multi-Byte Character Set\n"));
-    _tprintf(TEXT("UNICODE:          Properties -> General -> Character Set -> Use Unicode Character Set\n"));
-    _tprintf(TEXT("Після перемикання треба знову зібрати і запустити програму.\n"));
-}
 
-// ------------------------------------------------------
+// ======================================================
+// Основні функції
+// ======================================================
+
 // Перетворення ANSI -> Unicode
-// ------------------------------------------------------
-
-wstring AnsiToWide(const string& ansi)
+wstring ansiToWide(const string& ansi)
 {
     if (ansi.empty())
         return L"";
 
-    int requiredSize = MultiByteToWideChar(
-        1251,
-        0,
-        ansi.c_str(),
-        -1,
-        NULL,
-        0
-    );
+    int requiredSize = MultiByteToWideChar(1251, 0, ansi.c_str(), -1, NULL, 0);
 
     if (requiredSize == 0)
         return L"";
 
     vector<wchar_t> buffer(requiredSize);
 
-    MultiByteToWideChar(
-        1251,
-        0,
-        ansi.c_str(),
-        -1,
-        buffer.data(),
-        requiredSize
-    );
+    MultiByteToWideChar(1251, 0, ansi.c_str(), -1, buffer.data(), requiredSize);
 
     return wstring(buffer.data());
 }
 
-// ------------------------------------------------------
 // Перетворення Unicode -> ANSI
-// ------------------------------------------------------
-
-string WideToAnsi(const wstring& wide)
+string wideToAnsi(const wstring& wide)
 {
     if (wide.empty())
         return "";
 
     BOOL usedDefaultChar = FALSE;
 
-    int requiredSize = WideCharToMultiByte(
-        1251,
-        0,
-        wide.c_str(),
-        -1,
-        NULL,
-        0,
-        NULL,
-        &usedDefaultChar
-    );
+    int requiredSize = WideCharToMultiByte(1251, 0, wide.c_str(), -1, NULL, 0, NULL, &usedDefaultChar);
 
     if (requiredSize == 0)
         return "";
 
     vector<char> buffer(requiredSize);
 
-    WideCharToMultiByte(
-        1251,
-        0,
-        wide.c_str(),
-        -1,
-        buffer.data(),
-        requiredSize,
-        NULL,
-        &usedDefaultChar
-    );
+    WideCharToMultiByte(1251, 0, wide.c_str(), -1, buffer.data(), requiredSize, NULL, &usedDefaultChar);
 
     return string(buffer.data());
 }
 
-// ------------------------------------------------------
 // Виведення Unicode через wcout
-// ------------------------------------------------------
-
-void PrintWideWithWcout(const vector<wstring>& arr)
+void printWideWithWcout(const vector<wstring>& arr)
 {
-    PrintSeparator(TEXT("Виведення через wcout"));
+    printSeparator(_T("Виведення через wcout"));
 
+    fflush(stdout); // Відновлено очищення буфера
     int oldMode = _setmode(_fileno(stdout), _O_U16TEXT);
 
     for (size_t i = 0; i < arr.size(); i++)
@@ -178,38 +142,36 @@ void PrintWideWithWcout(const vector<wstring>& arr)
         wcout << L"[" << i + 1 << L"] " << arr[i] << endl;
     }
 
+    wcout.flush(); // Відновлено очищення буфера
     _setmode(_fileno(stdout), oldMode);
 }
 
-// ------------------------------------------------------
 // Виведення Unicode через _tprintf
-// ------------------------------------------------------
-
-void PrintWideWithTprintf(const vector<wstring>& arr)
+void printWideWithTprintf(const vector<wstring>& arr)
 {
-    PrintSeparator(TEXT("Виведення через _tprintf"));
+    printSeparator(_T("Виведення через _tprintf"));
 
-#ifdef UNICODE
-    int oldMode = _setmode(_fileno(stdout), _O_U16TEXT);
-#endif
+    fflush(stdout);
+
+    #ifdef UNICODE
+        int oldMode = _setmode(_fileno(stdout), _O_U16TEXT); // включаємо UTF-16
+    #endif
 
     for (size_t i = 0; i < arr.size(); i++)
     {
-        _tprintf(TEXT("[%d] %ls\n"), (int)(i + 1), arr[i].c_str());
+        _tprintf(_T("[%d] %ls\n"), (int)(i + 1), arr[i].c_str());
     }
 
-#ifdef UNICODE
-    _setmode(_fileno(stdout), oldMode);
-#endif
+    #ifdef UNICODE
+        fflush(stdout); 
+        _setmode(_fileno(stdout), oldMode); // повертаємо старий режим
+    #endif
 }
 
-// ------------------------------------------------------
 // Виведення Unicode через MessageBox
-// ------------------------------------------------------
-
-void PrintWideWithMessageBox(const vector<wstring>& arr)
+void printWideWithMessageBox(const vector<wstring>& arr)
 {
-    PrintSeparator(TEXT("Виведення через MessageBox"));
+    printSeparator(_T("Виведення через MessageBox"));
 
     wstring allText;
     for (size_t i = 0; i < arr.size(); i++)
@@ -224,18 +186,19 @@ void PrintWideWithMessageBox(const vector<wstring>& arr)
     MessageBoxW(NULL, allText.c_str(), L"Unicode-масив", MB_OK);
 }
 
+
 // ======================================================
-// qsort для Unicode-масиву
+// Функції сортування
 // ======================================================
 
-int __cdecl CompareWideStrings(const void* a, const void* b)
+int __cdecl compareWideStrings(const void* a, const void* b)
 {
     const wchar_t* const* s1 = (const wchar_t* const*)a;
     const wchar_t* const* s2 = (const wchar_t* const*)b;
     return wcscmp(*s1, *s2);
 }
 
-vector<wstring> SortWithQsort(const vector<wstring>& source)
+vector<wstring> qsort(const vector<wstring>& source)
 {
     vector<wchar_t*> ptrs;
     ptrs.reserve(source.size());
@@ -248,7 +211,7 @@ vector<wstring> SortWithQsort(const vector<wstring>& source)
         ptrs.push_back(temp);
     }
 
-    qsort(ptrs.data(), ptrs.size(), sizeof(wchar_t*), CompareWideStrings);
+    qsort(ptrs.data(), ptrs.size(), sizeof(wchar_t*), compareWideStrings);
 
     vector<wstring> result;
     result.reserve(ptrs.size());
@@ -262,32 +225,18 @@ vector<wstring> SortWithQsort(const vector<wstring>& source)
     return result;
 }
 
-vector<wstring> SortWithStdSort(vector<wstring> source)
+vector<wstring> stdsort(vector<wstring> source)
 {
     sort(source.begin(), source.end());
     return source;
 }
 
+
 // ======================================================
-// Додаткове завдання для найвищої оцінки
-// Незалежно від способу кодування символів у текстовому
-// файлі переставити символи у зворотному порядку
+// Додаткове завдання 
 // ======================================================
 
-// У межах даної лабораторної роботи будемо підтримувати
-// два основних варіанти кодування:
-// 1) ANSI / ASCII-подібне кодування
-// 2) Unicode UTF-16 LE
-enum class FileEncoding
-{
-    ANSI_TEXT,
-    UNICODE_UTF16_LE
-};
-
-// ------------------------------------------------------
-// Зчитування всіх байтів файла у вектор<char>
-// ------------------------------------------------------
-bool ReadFileBytes(const string& fileName, vector<char>& data)
+bool readFileBytes(const string& fileName, vector<char>& data)
 {
     ifstream fin(fileName, ios::binary);
     if (!fin.is_open())
@@ -312,13 +261,9 @@ bool ReadFileBytes(const string& fileName, vector<char>& data)
     return true;
 }
 
-// ------------------------------------------------------
+
 // Визначення типу кодування файла
-// ------------------------------------------------------
-// Спочатку перевіряємо наявність BOM UTF-16 LE.
-// Якщо BOM немає, додатково використовуємо IsTextUnicode.
-// Якщо Unicode не підтвердився, вважаємо файл ANSI.
-FileEncoding DetectEncoding(const vector<char>& data)
+FileEncoding detectEncoding(const vector<char>& data)
 {
     // Перевірка BOM для UTF-16 LE: FF FE
     if (data.size() >= 2)
@@ -341,12 +286,9 @@ FileEncoding DetectEncoding(const vector<char>& data)
     return FileEncoding::ANSI_TEXT;
 }
 
-// ------------------------------------------------------
+
 // Перетворення вмісту файла у wstring
-// ------------------------------------------------------
-// Це потрібно для того, щоб далі однаково зручно
-// працювати і з ANSI, і з Unicode-текстом.
-wstring BytesToWideText(const vector<char>& data, FileEncoding enc)
+wstring bytesToWideText(const vector<char>& data, FileEncoding enc)
 {
     if (data.empty())
         return L"";
@@ -371,19 +313,14 @@ wstring BytesToWideText(const vector<char>& data, FileEncoding enc)
     else
     {
         // Якщо файл ANSI, перетворюємо його в Unicode
-        // за допомогою вже створеної функції AnsiToWide
         string ansi(data.begin(), data.end());
-        return AnsiToWide(ansi);
+        return ansiToWide(ansi);
     }
 }
 
-// ------------------------------------------------------
+
 // Збереження результату у файл
-// ------------------------------------------------------
-// Якщо вхідний файл був Unicode, то і результат зберігаємо
-// як Unicode UTF-16 LE.
-// Якщо вхідний файл був ANSI, то і результат зберігаємо як ANSI.
-bool SaveWideText(const string& fileName, const wstring& text, FileEncoding enc)
+bool saveWideText(const string& fileName, const wstring& text, FileEncoding enc)
 {
     ofstream fout(fileName, ios::binary);
     if (!fout.is_open())
@@ -401,7 +338,7 @@ bool SaveWideText(const string& fileName, const wstring& text, FileEncoding enc)
     else
     {
         // Для ANSI виконуємо зворотне перетворення з Unicode
-        string ansi = WideToAnsi(text);
+        string ansi = wideToAnsi(text);
         fout.write(ansi.c_str(), ansi.size());
     }
 
@@ -409,158 +346,66 @@ bool SaveWideText(const string& fileName, const wstring& text, FileEncoding enc)
     return true;
 }
 
-// ------------------------------------------------------
-// Допоміжне виведення результату в консоль
-// ------------------------------------------------------
-// Для ANSI-файла виводимо через printf у кодовій сторінці 1251.
-// Для Unicode-файла використовуємо wide-виведення через wcout.
-void PrintReversedFileTextToConsole(const wstring& text, FileEncoding enc)
+
+void printReversedFileTextToConsole(const wstring& text, FileEncoding enc)
 {
+    fflush(stdout); // Відновлено очищення буфера
+
     if (enc == FileEncoding::ANSI_TEXT)
     {
         SetConsoleOutputCP(1251);
         _setmode(_fileno(stdout), _O_TEXT);
 
-        string ansiText = WideToAnsi(text);
+        string ansiText = wideToAnsi(text);
         printf("%s\n", ansiText.c_str());
+
+        fflush(stdout); // Відновлено очищення буфера
     }
     else
     {
         int oldMode = _setmode(_fileno(stdout), _O_U16TEXT);
         wcout << text << endl;
+
+        wcout.flush(); // Відновлено очищення буфера
         _setmode(_fileno(stdout), oldMode);
 
         SetConsoleOutputCP(1251);
     }
 }
 
-// ------------------------------------------------------
-// Основна функція додаткового завдання
-// ------------------------------------------------------
-// 1. Зчитуємо файл
-// 2. Визначаємо кодування
-// 3. Перетворюємо текст у wstring
-// 4. Переставляємо символи у зворотному порядку
-// 5. Виводимо результат у консоль
-// 6. Зберігаємо результат у новий файл
-void ReverseTextFilePreserveEncoding(const string& inputFile, const string& outputFile)
+
+void reverseTextFilePreserveEncoding(const string& inputFile, const string& outputFile)
 {
-    PrintSeparator(TEXT("Додаткове завдання: файл у зворотному порядку"));
+    printSeparator(_T("Додаткове завдання: файл у зворотному порядку"));
 
     vector<char> bytes;
 
-    // Перевіряємо, чи вдалося відкрити файл
-    if (!ReadFileBytes(inputFile, bytes))
+    if (!readFileBytes(inputFile, bytes))
     {
-        _tprintf(TEXT("Не вдалося відкрити вхідний файл: %S\n"), inputFile.c_str());
+        _tprintf(_T("Не вдалося відкрити вхідний файл: %S\n"), inputFile.c_str());
         return;
     }
 
-    // Визначаємо тип кодування файла
-    FileEncoding enc = DetectEncoding(bytes);
+    FileEncoding enc = detectEncoding(bytes);
 
     if (enc == FileEncoding::UNICODE_UTF16_LE)
-        _tprintf(TEXT("Визначено тип файлу: UNICODE UTF-16 LE\n"));
+        _tprintf(_T("Визначено тип файлу: UNICODE UTF-16 LE\n"));
     else
-        _tprintf(TEXT("Визначено тип файлу: ANSI / ASCII-подібний\n"));
+        _tprintf(_T("Визначено тип файлу: ANSI / ASCII-подібний\n"));
 
-    // Перетворюємо байти файла у Unicode-рядок
-    wstring text = BytesToWideText(bytes, enc);
+    wstring text = bytesToWideText(bytes, enc);
 
-    // Переставляємо символи у зворотному порядку
     reverse(text.begin(), text.end());
 
-    // Виводимо результат у консоль
-    _tprintf(TEXT("Вміст тексту після перестановки символів у зворотному порядку:\n"));
-    PrintReversedFileTextToConsole(text, enc);
+    _tprintf(_T("Вміст тексту після перестановки символів у зворотному порядку:\n"));
+    printReversedFileTextToConsole(text, enc);
 
-    // Зберігаємо перевернутий текст у новий файл
-    if (SaveWideText(outputFile, text, enc))
-        _tprintf(TEXT("Результат збережено у файл: %S\n"), outputFile.c_str());
+    if (saveWideText(outputFile, text, enc))
+        _tprintf(_T("Результат збережено у файл: %S\n"), outputFile.c_str());
     else
-        _tprintf(TEXT("Не вдалося зберегти результат.\n"));
+        _tprintf(_T("Не вдалося зберегти результат.\n"));
 }
 
-// ======================================================
-// Основна лабораторна логіка
-// ======================================================
-
-void task1_Lab1()
-{
-    SetupLocale();
-
-    PrintEncodingInfo();
-    PrintMacroInfo();
-    ShowProjectModeReminder();
-
-    PrintSeparator(TEXT("4. Формування ANSI-масиву з ПІБ"));
-
-    // Для надійності джерельного файла спочатку задаємо wide-рядки,
-    // а потім будуємо ANSI-подання програмно.
-    vector<wstring> familyWideSource =
-    {
-        L"Кулик Євген Вадимович",
-        L"Клочков Ілля Віталійович",
-        L"Калашник Андрій Миколайович"
-    };
-
-    vector<string> familyAnsi;
-    for (const auto& ws : familyWideSource)
-    {
-        familyAnsi.push_back(WideToAnsi(ws));
-    }
-
-    _tprintf(TEXT("ANSI-рядки:\n"));
-    for (size_t i = 0; i < familyAnsi.size(); i++)
-    {
-        printf("[%d] %s\n", (int)(i + 1), familyAnsi[i].c_str());
-    }
-
-    PrintSeparator(TEXT("5. Перетворення ANSI -> UNICODE"));
-
-    vector<wstring> familyUnicode;
-    for (const auto& s : familyAnsi)
-    {
-        familyUnicode.push_back(AnsiToWide(s));
-    }
-
-    _tprintf(TEXT("Масив Unicode сформовано успішно.\n"));
-
-    PrintWideWithTprintf(familyUnicode);
-    PrintWideWithWcout(familyUnicode);
-    PrintWideWithMessageBox(familyUnicode);
-
-    PrintSeparator(TEXT("6. Сортування Unicode-масиву через qsort"));
-
-    vector<wstring> qsorted = SortWithQsort(familyUnicode);
-    PrintWideWithTprintf(qsorted);
-
-    PrintSeparator(TEXT("7. Сортування Unicode-масиву через std::sort"));
-
-    vector<wstring> stdsorted = SortWithStdSort(familyUnicode);
-    PrintWideWithTprintf(stdsorted);
-
-    PrintSeparator(TEXT("8. Зворотне перетворення UNICODE -> ANSI"));
-
-    vector<string> backToAnsi;
-    for (const auto& ws : stdsorted)
-    {
-        backToAnsi.push_back(WideToAnsi(ws));
-    }
-
-    _tprintf(TEXT("Результат після зворотного перетворення:\n"));
-    for (size_t i = 0; i < backToAnsi.size(); i++)
-    {
-        printf("[%d] %s\n", (int)(i + 1), backToAnsi[i].c_str());
-    }
-
-    // --------------------------------------------------
-    // Додаткове завдання на найвищу оцінку
-    // --------------------------------------------------
-
-    ReverseTextFilePreserveEncoding("input_ansi.txt", "output_ansi_reversed.txt");
-    ReverseTextFilePreserveEncoding("input_unicode.txt", "output_unicode_reversed.txt");
-}
 
 // ===============================
 // |⣿⣿⣿⣿⣿⣿⣿⣿⣻⣿⣿⣿⡿⢿⡿⠿⠿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⡿⣿|
@@ -577,9 +422,86 @@ void task1_Lab1()
 // |       функція main          |
 // ===============================
 
-
 int _tmain()
 {
-    task1_Lab1();
+    const string input_ansi_file = "input_ansi.txt";
+    const string output_ansi_file = "output_ansi_reversed.txt";
+    const string input_unicode_file = "input_unicode.txt";
+    const string output_unicode_file = "output_unicode_reversed.txt";
+
+    setupLocale();
+
+    printEncodingInfo();
+    printMacroInfo();
+
+    printSeparator(_T("4. Формування ANSI-масиву з ПІБ"));
+
+    vector<wstring> familyWideSource = {
+        L"Кулик Євген Вадимович",
+        L"Клочков Ілля Віталійович",
+        L"Калашник Андрій Миколайович"
+    };
+
+    vector<string> familyAnsi;
+    for (const auto& ws : familyWideSource)
+    {
+        familyAnsi.push_back(wideToAnsi(ws));
+    }
+
+    _tprintf(_T("ANSI-рядки:\n"));
+    fflush(stdout);
+    SetConsoleOutputCP(1251);
+    for (size_t i = 0; i < familyAnsi.size(); i++)
+    {
+        printf("[%d] %s\n", (int)(i + 1), familyAnsi[i].c_str());
+    }
+
+    printSeparator(_T("5. Перетворення ANSI -> UNICODE"));
+
+    vector<wstring> familyUnicode;
+    for (const auto& s : familyAnsi)
+    {
+        familyUnicode.push_back(ansiToWide(s));
+    }
+
+    _tprintf(_T("Масив Unicode сформовано успішно.\n"));
+
+    printWideWithTprintf(familyUnicode);
+    printWideWithWcout(familyUnicode);
+    printWideWithMessageBox(familyUnicode);
+
+    printSeparator(_T("6. Сортування Unicode-масиву через qsort"));
+
+    vector<wstring> qsorted = qsort(familyUnicode);
+    printWideWithTprintf(qsorted);
+
+    printSeparator(_T("7. Сортування Unicode-масиву через std::sort"));
+
+    vector<wstring> stdsorted = stdsort(familyUnicode);
+    printWideWithTprintf(stdsorted);
+
+    printSeparator(_T("8. Зворотне перетворення UNICODE -> ANSI"));
+
+    vector<string> backToAnsi;
+    for (const auto& ws : stdsorted)
+    {
+        backToAnsi.push_back(wideToAnsi(ws));
+    }
+
+    _tprintf(_T("Результат після зворотного перетворення:\n"));
+    fflush(stdout);           
+    SetConsoleOutputCP(1251); 
+    for (size_t i = 0; i < backToAnsi.size(); i++)
+    {
+        printf("[%d] %s\n", (int)(i + 1), backToAnsi[i].c_str());
+    }
+
+    // --------------------------------------------------
+    // Додаткове завдання на найвищу оцінку
+    // --------------------------------------------------
+
+    reverseTextFilePreserveEncoding(input_ansi_file, output_ansi_file);
+    reverseTextFilePreserveEncoding(input_unicode_file, output_unicode_file);
+
     return 0;
 }
