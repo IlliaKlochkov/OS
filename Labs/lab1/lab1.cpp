@@ -466,21 +466,22 @@ int _tmain()
 
     _tprintf(_T("Масив Unicode сформовано успішно.\n"));
 
+    printSeparator(_T("5. Виведення Unicode-масиву трьома способами"));
     printWideWithTprintf(familyUnicode);
     printWideWithWcout(familyUnicode);
     printWideWithMessageBox(familyUnicode);
 
-    printSeparator(_T("5. Сортування Unicode-масиву через qsort"));
+    printSeparator(_T("6. Сортування Unicode-масиву через qsort"));
 
     vector<wstring> qsorted = qsort(familyUnicode);
     printWideWithTprintf(qsorted);
 
-    printSeparator(_T("6. Сортування Unicode-масиву через std::sort"));
+    printSeparator(_T("7. Сортування Unicode-масиву через std::sort"));
 
     vector<wstring> stdsorted = stdsort(familyUnicode);
     printWideWithTprintf(stdsorted);
 
-    printSeparator(_T("7. Зворотне перетворення UNICODE -> ANSI"));
+    printSeparator(_T("8. Зворотне перетворення UNICODE -> ANSI"));
 
     vector<string> backToAnsi;
     for (const auto& ws : stdsorted)
