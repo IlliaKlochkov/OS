@@ -3,7 +3,9 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Folder Name="/Labs/" />
+  <Folder Name="/Labs/">
+    <Project Path="Labs/lab1/lab1.vcxproj" Id="cafd4169-bcdf-4849-8a05-2fdd6716bb0d" />
+  </Folder>
   <Folder Name="/Practices/">
     <Project Path="Practices/pz1/pz1.vcxproj" Id="b3f9f128-c78a-44c0-bc9f-68542fec7654" />
     <Project Path="Practices/pz2/pz2.vcxproj" Id="3ab820d3-e61e-457e-9361-49c00d0f21bf" />
