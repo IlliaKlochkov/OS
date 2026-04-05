@@ -11,5 +11,6 @@
     <Project Path="Practices/pz2/pz2.vcxproj" Id="3ab820d3-e61e-457e-9361-49c00d0f21bf" />
     <Project Path="Practices/pz3/pz3.vcxproj" Id="c57917b2-8902-4671-b9b5-318414ab1b8c" />
     <Project Path="Practices/pz4/pz4.vcxproj" Id="9dc1ea97-0589-49a0-a280-5af18c0d25f4" />
+    <Project Path="Practices/pz5/pz5.vcxproj" Id="020a3357-be5c-4d33-aa27-f99fe8a8f32d" />
   </Folder>
 </Solution>
