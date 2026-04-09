@@ -1,0 +1,6 @@
+LIBRARY "mymath"
+EXPORTS
+    MyAdd
+    MySub
+    MyMul
+    MyDiv
