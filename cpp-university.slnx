@@ -18,4 +18,8 @@
     <Project Path="Practices/pz6/testDynamic/testDynamic.vcxproj" Id="b3b29695-29d6-4c8d-9f84-4f5395ee171a" />
     <Project Path="Practices/pz6/testStatic/testStatic.vcxproj" Id="47d60fd2-191f-49a3-a576-947d5e328776" />
   </Folder>
+  <Folder Name="/Practices/pz7/">
+    <Project Path="Practices/pz7/mydll/mydll.vcxproj" Id="371d7926-0825-408a-afde-8dd6e920ad99" />
+    <Project Path="Practices/pz7/patcher/patcher.vcxproj" Id="b0964910-e8a9-4ed5-b5f7-28901b82322d" />
+  </Folder>
 </Solution>
