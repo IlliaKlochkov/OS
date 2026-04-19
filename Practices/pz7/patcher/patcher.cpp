@@ -38,7 +38,7 @@ DWORD GetControlSum(PBYTE pMem, DWORD dwCount) {
 
 int _tmain(int argc, _TCHAR* argv[]) {
     if (argc < 2) {
-        _tprintf(_T("Використання: CS_Patcher.exe <шлях_до_DLL>\n"));
+        _tprintf(_T("Використання: patcher.exe <шлях_до_DLL>\n"));
         return 1;
     }
 
