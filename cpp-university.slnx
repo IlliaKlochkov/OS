@@ -12,6 +12,7 @@
     <Project Path="Practices/pz3/pz3.vcxproj" Id="c57917b2-8902-4671-b9b5-318414ab1b8c" />
     <Project Path="Practices/pz4/pz4.vcxproj" Id="9dc1ea97-0589-49a0-a280-5af18c0d25f4" />
     <Project Path="Practices/pz5/pz5.vcxproj" Id="020a3357-be5c-4d33-aa27-f99fe8a8f32d" />
+    <Project Path="Practices/pz8/pz8.vcxproj" Id="ec7d4a58-9c2c-4c1b-964f-bbacb1e22127" />
   </Folder>
   <Folder Name="/Practices/pz6/">
     <Project Path="Practices/pz6/mymath/mymath.vcxproj" Id="caf96d73-cb90-4295-a009-0632307f8e72" />
