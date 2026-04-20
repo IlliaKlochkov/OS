@@ -64,7 +64,8 @@ void runTask1() {
 
         if (highest_priority_idx != -1) {
             // відстеження переключень контексту
-            if (last_executed_id != processes[highest_priority_idx].id && last_executed_id != -1) {
+            // рахуємо кожне нове виділення процесора процесу, включно з першим запуском
+            if (last_executed_id != processes[highest_priority_idx].id) {
                 context_switches++;
             }
             last_executed_id = processes[highest_priority_idx].id;
@@ -146,7 +147,8 @@ void processQueue(queue<ProcessT2>& current_q, queue<ProcessT2>* next_q, int qua
     ProcessT2 p = current_q.front();
     current_q.pop();
 
-    if (last_executed_id != p.id && last_executed_id != -1) context_switches++;
+    if (last_executed_id != p.id)
+        context_switches++;
     last_executed_id = p.id;
 
     if (p.first_start_time == -1) p.first_start_time = current_time;
@@ -163,7 +165,7 @@ void processQueue(queue<ProcessT2>& current_q, queue<ProcessT2>* next_q, int qua
         printf("[INFO] Час %d: %s виконує P%d (виділено часу: %d, залишилось: %d)\n", current_time, q_name.c_str(), p.id, execution_time, p.remaining_time);
     }
 
-    // gеревірка, чи процес не завершився і чи є куди його переводити
+    // перевірка, чи процес не завершився і чи є куди його переводити
     if (p.remaining_time > 0 && next_q != nullptr) {
         next_q->push(p);
     }
