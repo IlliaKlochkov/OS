@@ -19,7 +19,8 @@
     <Project Path="Practices/pz6/testStatic/testStatic.vcxproj" Id="47d60fd2-191f-49a3-a576-947d5e328776" />
   </Folder>
   <Folder Name="/Practices/pz7/">
-    <Project Path="Practices/pz7/mydll/mydll.vcxproj" Id="371d7926-0825-408a-afde-8dd6e920ad99" />
-    <Project Path="Practices/pz7/patcher/patcher.vcxproj" Id="b0964910-e8a9-4ed5-b5f7-28901b82322d" />
+    <Project Path="Practices/pz7/CheckSumCalc/CheckSumCalc.vcxproj" Id="3e7bbd29-4058-488c-a2d2-00b5dab62efd" />
+    <Project Path="Practices/pz7/Main/Main.vcxproj" Id="3d15acfe-89da-4203-86cb-519f54cca55b" />
+    <Project Path="Practices/pz7/MathDLL/MathDLL.vcxproj" Id="5604eb08-7913-4561-9f9d-1d842220c034" />
   </Folder>
 </Solution>
