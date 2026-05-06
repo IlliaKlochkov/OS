@@ -5,6 +5,7 @@
   </Configurations>
   <Folder Name="/Labs/">
     <Project Path="Labs/lab1/lab1.vcxproj" Id="cafd4169-bcdf-4849-8a05-2fdd6716bb0d" />
+    <Project Path="Labs/lab4/lab4/lab4.vcxproj" Id="a9f780ff-a900-4021-8b31-87836a2329f3" />
   </Folder>
   <Folder Name="/Labs/lab2/">
     <Project Path="Labs/lab2/lab2_main/Lab2_main.vcxproj" Id="c44635b9-6d28-4d98-9a20-74328ab7273d" />
