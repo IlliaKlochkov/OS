@@ -174,6 +174,25 @@ bool createMailbox(DWORD maxSizeBytes)
 // Додавання листа
 // ======================================================
 
+DWORD findFreeMessageIndex()
+{
+    DWORD index = 0;
+
+    while (true)
+    {
+        string path = getMessagePath(index);
+
+        DWORD attrs = GetFileAttributesA(path.c_str());
+
+        if (attrs == INVALID_FILE_ATTRIBUTES)
+        {
+            return index;
+        }
+
+        index++;
+    }
+}
+
 bool addMessage(const string& body)
 {
     MailboxHeader hdr;
@@ -193,7 +212,7 @@ bool addMessage(const string& body)
     }
 
     // Знаходимо наступний вільний індекс (може бути «дірка» через видалення)
-    DWORD newIndex = hdr.msgCount;
+    DWORD newIndex = findFreeMessageIndex();
 
     string msgPath = getMessagePath(newIndex);
 
