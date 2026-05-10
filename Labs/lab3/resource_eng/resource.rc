@@ -1,0 +1,14 @@
+#include <windows.h>
+#include "resource.h"
+
+#pragma code_page(65001)
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+STRINGTABLE
+BEGIN
+    IDS_LASTNAME "Last name: <Lastname>"
+    IDS_FACULTY  "Faculty: <Faculty>"
+    IDS_GROUP    "Group: <Group>"
+    IDS_SUBJECT  "Subject: <Subject>"
+END

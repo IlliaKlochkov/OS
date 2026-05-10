@@ -10,6 +10,13 @@
     <Project Path="Labs/lab2/lab2_main/Lab2_main.vcxproj" Id="c44635b9-6d28-4d98-9a20-74328ab7273d" />
     <Project Path="Labs/lab2/rsa_lib/rsa_lib.vcxproj" Id="9a07b8a6-c878-4a33-bf95-b5fed13f73cd" />
   </Folder>
+  <Folder Name="/Labs/lab3/">
+    <Project Path="Labs/lab3/rsa_lib_dyn/rsa_lib_dyn.vcxproj" Id="11d7f814-e7e5-40de-8890-14642e22ea48" />
+    <Project Path="Labs/lab3/CheckSumCalc/CheckSumCalc.vcxproj" Id="16132bdd-d1b6-4530-bc1e-70e6639680a7" />
+    <Project Path="Labs/lab3/resource_ukr/resource_ukr.vcxproj" Id="6c262db6-cb73-46e0-b8c6-71b3bf90f0a4" />
+    <Project Path="Labs/lab3/resource_eng/resource_eng.vcxproj" Id="dcfeeecb-6770-4ee1-a840-97d577742edc" />
+    <Project Path="Labs/lab3/lab3_main/lab3_main.vcxproj" Id="2abdbe7a-9214-42dd-addf-81ba2c63306f" />
+  </Folder>
   <Folder Name="/Practices/">
     <Project Path="Practices/pz1/pz1.vcxproj" Id="b3f9f128-c78a-44c0-bc9f-68542fec7654" />
     <Project Path="Practices/pz2/pz2.vcxproj" Id="3ab820d3-e61e-457e-9361-49c00d0f21bf" />

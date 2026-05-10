@@ -1,0 +1,9 @@
+LIBRARY "rsa_lib_dyn"
+EXPORTS
+    isPrime
+    gcd
+    modPow
+    modInverse
+    generateKeys
+    encrypt
+    decrypt
