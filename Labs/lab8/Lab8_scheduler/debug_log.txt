@@ -1,0 +1,820 @@
+Thread 1 START
+Thread 0 START
+Thread 3 START
+Thread 2 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 1 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 1 START
+Thread 0 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 1 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 1 START
+Thread 2 START
+Thread 0 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 3 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 8 START
+Thread 6 START
+Thread 7 START
+Thread 5 START
+Thread 9 START
+Thread 5 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 6 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 0 START
+Thread 2 START
+Thread 1 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 5 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 1 START
+Thread 0 START
+Thread 4 START
+Thread 3 START
+Thread 2 START
+Thread 8 START
+Thread 6 START
+Thread 7 START
+Thread 5 START
+Thread 1 END (dummy=12499997500000)
+Thread 9 START
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 1 START
+Thread 0 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 2 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 0 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 0 START
+Thread 2 START
+Thread 1 START
+Thread 3 START
+Thread 7 START
+Thread 5 START
+Thread 6 START
+Thread 4 START
+Thread 8 START
+Thread 9 START
+Thread 4 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 0 START
+Thread 2 START
+Thread 1 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 3 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 9 START
+Thread 8 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 0 START
+Thread 1 START
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 8 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 2 START
+Thread 9 START
+Thread 0 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 5 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 1 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 5 START
+Thread 3 START
+Thread 4 START
+Thread 9 START
+Thread 7 START
+Thread 8 START
+Thread 6 START
+Thread 3 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 7 START
+Thread 8 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 2 START
+Thread 3 START
+Thread 9 START
+Thread 7 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 START
+Thread 2 START
+Thread 1 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 7 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 3 START
+Thread 2 START
+Thread 4 START
+Thread 7 START
+Thread 6 START
+Thread 5 START
+Thread 8 START
+Thread 9 START
+Thread 6 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 START
+Thread 5 START
+Thread 1 START
+Thread 3 START
+Thread 4 START
+Thread 2 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 3 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 0 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 4 START
+Thread 3 START
+Thread 7 START
+Thread 6 START
+Thread 5 START
+Thread 8 START
+Thread 9 START
+Thread 9 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 0 START
+Thread 2 START
+Thread 1 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 0 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 1 START
+Thread 0 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 4 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 5 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 0 START
+Thread 2 START
+Thread 1 START
+Thread 4 START
+Thread 3 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 0 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 7 START
+Thread 9 START
+Thread 4 START
+Thread 6 START
+Thread 2 START
+Thread 5 START
+Thread 8 START
+Thread 3 START
+Thread 0 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 0 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 1 START
+Thread 6 START
+Thread 7 START
+Thread 9 START
+Thread 8 START
+Thread 4 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 0 START
+Thread 8 START
+Thread 2 START
+Thread 3 START
+Thread 6 START
+Thread 5 START
+Thread 4 START
+Thread 7 START
+Thread 1 START
+Thread 9 START
+Thread 3 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 0 START
+Thread 8 START
+Thread 1 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 2 START
+Thread 9 START
+Thread 9 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 0 START
+Thread 6 START
+Thread 3 START
+Thread 2 START
+Thread 4 START
+Thread 5 START
+Thread 1 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 2 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 9 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 2 START
+Thread 3 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 0 START
+Thread 9 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 1 START
+Thread 6 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 2 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 1 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 0 START
+Thread 2 START
+Thread 1 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 0 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 0 START
+Thread 9 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 1 START
+Thread 0 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 0 START
+Thread 2 START
+Thread 9 START
+Thread 1 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 4 START
+Thread 8 START
+Thread 3 START
+Thread 5 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 4 START
+Thread 3 START
+Thread 5 START
+Thread 6 START
+Thread 9 START
+Thread 2 START
+Thread 7 START
+Thread 8 START
+Thread 0 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 0 START
+Thread 9 START
+Thread 1 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 2 START
+Thread 1 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 0 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 0 START
+Thread 1 START
+Thread 2 START
+Thread 3 START
+Thread 4 START
+Thread 5 START
+Thread 6 START
+Thread 7 START
+Thread 8 START
+Thread 9 START
+Thread 0 END (dummy=12499997500000)
+Thread 2 END (dummy=12499997500000)
+Thread 4 END (dummy=12499997500000)
+Thread 3 END (dummy=12499997500000)
+Thread 1 END (dummy=12499997500000)
+Thread 7 END (dummy=12499997500000)
+Thread 9 END (dummy=12499997500000)
+Thread 8 END (dummy=12499997500000)
+Thread 5 END (dummy=12499997500000)
+Thread 6 END (dummy=12499997500000)
