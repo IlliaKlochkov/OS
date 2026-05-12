@@ -11,6 +11,11 @@
     <Project Path="Labs/lab2/lab2_main/Lab2_main.vcxproj" Id="c44635b9-6d28-4d98-9a20-74328ab7273d" />
     <Project Path="Labs/lab2/rsa_lib/rsa_lib.vcxproj" Id="9a07b8a6-c878-4a33-bf95-b5fed13f73cd" />
   </Folder>
+  <Folder Name="/Labs/lab8/">
+    <Project Path="Labs/lab8/Lab8_main/Lab8_main.vcxproj" Id="d4349e8e-f49b-4d23-83cf-fbbbb89dc597" />
+    <Project Path="Labs/lab8/Lab8_scheduler/Lab8_scheduler.vcxproj" Id="4210e690-d3ba-4bc8-b9cc-4cd1208dbc38" />
+    <Project Path="Labs/lab8/thread_lib/thread_lib.vcxproj" Id="f4f69579-89b8-48ea-86e4-ac25f238fcdc" />
+  </Folder>
   <Folder Name="/Practices/">
     <Project Path="Practices/pz1/pz1.vcxproj" Id="b3f9f128-c78a-44c0-bc9f-68542fec7654" />
     <Project Path="Practices/pz2/pz2.vcxproj" Id="3ab820d3-e61e-457e-9361-49c00d0f21bf" />
