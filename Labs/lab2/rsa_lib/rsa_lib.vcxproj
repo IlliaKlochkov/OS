@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="rsa_lib.cpp" />
+    <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rsa_lib.h" />
