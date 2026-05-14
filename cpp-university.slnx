@@ -5,6 +5,7 @@
   </Configurations>
   <Folder Name="/Labs/">
     <Project Path="Labs/lab1/lab1.vcxproj" Id="cafd4169-bcdf-4849-8a05-2fdd6716bb0d" />
+    <Project Path="Labs/lab4/lab4.vcxproj" Id="a9f780ff-a900-4021-8b31-87836a2329f3" />
   </Folder>
   <Folder Name="/Labs/lab2/">
     <Project Path="Labs/lab2/lab2_main/Lab2_main.vcxproj" Id="c44635b9-6d28-4d98-9a20-74328ab7273d" />
@@ -16,6 +17,12 @@
     <Project Path="Labs/lab3/resource_ukr/resource_ukr.vcxproj" Id="6c262db6-cb73-46e0-b8c6-71b3bf90f0a4" />
     <Project Path="Labs/lab3/resource_eng/resource_eng.vcxproj" Id="dcfeeecb-6770-4ee1-a840-97d577742edc" />
     <Project Path="Labs/lab3/lab3_main/lab3_main.vcxproj" Id="2abdbe7a-9214-42dd-addf-81ba2c63306f" />
+  </Folder>
+
+  <Folder Name="/Labs/lab8/">
+    <Project Path="Labs/lab8/Lab8_main/Lab8_main.vcxproj" Id="d4349e8e-f49b-4d23-83cf-fbbbb89dc597" />
+    <Project Path="Labs/lab8/Lab8_scheduler/Lab8_scheduler.vcxproj" Id="4210e690-d3ba-4bc8-b9cc-4cd1208dbc38" />
+    <Project Path="Labs/lab8/thread_lib/thread_lib.vcxproj" Id="f4f69579-89b8-48ea-86e4-ac25f238fcdc" />
   </Folder>
   <Folder Name="/Practices/">
     <Project Path="Practices/pz1/pz1.vcxproj" Id="b3f9f128-c78a-44c0-bc9f-68542fec7654" />
