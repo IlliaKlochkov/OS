@@ -53,7 +53,7 @@ BEGIN
     IDS_LASTNAME            "Last name: Klochkov, Kulyk, Kalashnyk"
     IDS_FACULTY             "Faculty: Computer Science"
     IDS_GROUP               "Group: PZPI-24-5"
-    IDS_SUBJECT             "Subject: Operating Systems"
+    IDS_SUBJECT             "Subject: <Subject>"
 END
 
 #endif    // English (United States) resources
