@@ -38,7 +38,10 @@ static void RunNoWait(LPTSTR cmdLine, PROCESS_INFORMATION* out)
     ZeroMemory(&pi, sizeof(pi));
 
     CreateProcess(NULL, cmdLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
-    if (out) *out = pi;
+    
+    if (out) {
+        *out = pi;
+    }
 }
 
 typedef enum { ENC_ANSI, ENC_UNICODE_UTF16LE } FileEncoding;
