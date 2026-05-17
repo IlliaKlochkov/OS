@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5b83e6bf-daef-4ca5-a65d-fc457075dd96}</ProjectGuid>
-    <RootNamespace>proj3launcher</RootNamespace>
+    <ProjectGuid>{65bc9da9-f0f3-4bc2-a67a-2ca6d913f17e}</ProjectGuid>
+    <RootNamespace>creator</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,7 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="proj3_launcher.cpp" />
+    <ClCompile Include="creator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -66,8 +66,8 @@ static BOOL RunProcessWithPriority(LPTSTR cmdLine, DWORD priorityClass)
 
 int _tmain(int argc, TCHAR* argv[])
 {
-    TCHAR prog1[MAX_PATH] = _T("proj1_creator.exe");
-    TCHAR prog2[MAX_PATH] = _T("proj2_analyzer.exe");
+    TCHAR prog1[MAX_PATH] = _T("creator.exe");
+    TCHAR prog2[MAX_PATH] = _T("analyzer.exe");
     TCHAR dir[MAX_PATH] = _T("C:\\lab7_files");
 
     if (argc >= 2) _tcsncpy_s(prog1, MAX_PATH, argv[1], _TRUNCATE);
@@ -97,8 +97,8 @@ int _tmain(int argc, TCHAR* argv[])
     }
 
     printf("=== Program 3: Sequential launch ===\n");
-    printf("Program 1: proj1_creator.exe\n");
-    printf("Program 2: proj2_analyzer.exe\n");
+    printf("Program 1: creator.exe\n");
+    printf("Program 2: analyzer.exe\n");
     printf("Directory: C:\\lab7_files\n");
 
     // Launch Program 1 - normal priority, wait for completion

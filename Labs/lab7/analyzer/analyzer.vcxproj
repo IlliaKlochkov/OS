@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{65bc9da9-f0f3-4bc2-a67a-2ca6d913f17e}</ProjectGuid>
-    <RootNamespace>proj1creator</RootNamespace>
+    <ProjectGuid>{e177039b-11d1-47b9-80f6-f6b4435fe04a}</ProjectGuid>
+    <RootNamespace>analyzer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,7 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="proj1_creator.cpp" />
+    <ClCompile Include="analyzer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
