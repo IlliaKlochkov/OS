@@ -1,9 +1,7 @@
-﻿// Project 3 - Launch Program 1 then Program 2 sequentially.
-// Program 1: normal priority (via RUN_PROCESS_WAIT macro).
-// Program 2: BELOW_NORMAL_PRIORITY_CLASS (via RunProcessWithPriority).
-// Paths and folder are passed via env variables or command-line arguments:
-//   PROG1_PATH, PROG2_PATH, OUTPUT_DIR
-//   or argv[1], argv[2], argv[3]
+﻿// Проєкт 3 - Послідовно запускає Програму 1, потім Програму 2.
+// Програма 1: нормальний пріоритет (через макрос RUN_PROCESS_WAIT).
+// Програма 2: BELOW_NORMAL_PRIORITY_CLASS (через RunProcessWithPriority).
+// Шляхи та тека передаються через змінні середовища або аргументи командного рядка: PROG1_PATH, PROG2_PATH, OUTPUT_DIR або argv[1], argv[2], argv[3]
 
 #include <windows.h>
 #include <tchar.h>
@@ -11,29 +9,31 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Macro for immediate process launch (waits for completion)
-#define RUN_PROCESS_WAIT(cmdLine, si, pi)                              \
-    do {                                                                \
-        ZeroMemory(&(si), sizeof(si)); (si).cb = sizeof(si);           \
-        ZeroMemory(&(pi), sizeof(pi));                                  \
-        if (CreateProcess(NULL, (cmdLine), NULL, NULL, FALSE, 0,        \
-                          NULL, NULL, &(si), &(pi))) {                  \
-            WaitForSingleObject((pi).hProcess, INFINITE);               \
-            CloseHandle((pi).hProcess); CloseHandle((pi).hThread);      \
-        } else {                                                        \
-            printf("[ERROR] CreateProcess failed: code %lu\n",          \
-                   GetLastError());                                      \
-        }                                                               \
-    } while(0)
+// макрос для негайного запуску процесу (чекає на завершення)
+static void RunWait(LPTSTR cmdLine)
+{
+    STARTUPINFO si; PROCESS_INFORMATION pi;
+    ZeroMemory(&si, sizeof(si)); si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+    if (CreateProcess(NULL, cmdLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
+        WaitForSingleObject(pi.hProcess, INFINITE);
+        CloseHandle(pi.hProcess); CloseHandle(pi.hThread);
+    }
+    else {
+        printf("[ERROR] CreateProcess failed: code %lu\n", GetLastError());
+    }
+}
 
-// Macro for deferred process launch (does not wait)
-#define RUN_PROCESS_NOWAIT(cmdLine, si, pi)                            \
-    do {                                                                \
-        ZeroMemory(&(si), sizeof(si)); (si).cb = sizeof(si);           \
-        ZeroMemory(&(pi), sizeof(pi));                                  \
-        CreateProcess(NULL, (cmdLine), NULL, NULL, FALSE, 0,            \
-                      NULL, NULL, &(si), &(pi));                        \
-    } while(0)
+// макрос для відкладеного запуску процесу (не чекає)
+static void RunNoWait(LPTSTR cmdLine, PROCESS_INFORMATION* out)
+{
+    STARTUPINFO si; PROCESS_INFORMATION pi;
+    ZeroMemory(&si, sizeof(si)); si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+    CreateProcess(NULL, cmdLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+    if (out) *out = pi;
+}
+
 
 static BOOL RunProcessWithPriority(LPTSTR cmdLine, DWORD priorityClass)
 {
@@ -101,15 +101,15 @@ int _tmain(int argc, TCHAR* argv[])
     printf("Program 2: proj2_analyzer.exe\n");
     printf("Directory: C:\\lab7_files\n");
 
-    // Launch Program 1 - normal priority, wait for completion
+    // запуск програми 1
     printf("\n[1/2] Launching Program 1 (NORMAL_PRIORITY_CLASS)...\n");
     TCHAR cmd1[MAX_PATH * 2];
     _stprintf_s(cmd1, MAX_PATH * 2, _T("%s %s"), prog1, dir);
     STARTUPINFO si1; PROCESS_INFORMATION pi1;
-    RUN_PROCESS_WAIT(cmd1, si1, pi1);
+    RunWait(cmd1);
     printf("[1/2] Program 1 finished.\n");
-
-    // Launch Program 2 - below normal priority, wait for completion
+    
+    // запуск програми 2
     printf("\n[2/2] Launching Program 2 (BELOW_NORMAL_PRIORITY_CLASS)...\n");
     TCHAR cmd2[MAX_PATH * 2];
     _stprintf_s(cmd2, MAX_PATH * 2, _T("%s %s"), prog2, dir);

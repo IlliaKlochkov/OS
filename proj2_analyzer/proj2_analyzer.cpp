@@ -1,8 +1,4 @@
-﻿// Project 2 - Analyze text files in the target folder.
-// Determines: file size, line count, length of each line.
-// Supports ASCII and UNICODE UTF-16 LE (auto-detected by BOM).
-// Target folder: C:\lab7_files (default)
-// Can be changed via OUTPUT_DIR env variable or first command-line argument.
+﻿// Проєкт 2 - Аналізує текстові файли у цільовій теці.Визначає: розмір файлу, кількість рядків, довжину кожного рядка.
 
 #include <windows.h>
 #include <tchar.h>
@@ -13,26 +9,28 @@
 #include <fcntl.h>
 #include <tlhelp32.h>
 
-// Macro for immediate process launch (waits for completion)
-#define RUN_PROCESS_WAIT(cmdLine, si, pi)                              \
-    do {                                                                \
-        ZeroMemory(&(si), sizeof(si)); (si).cb = sizeof(si);           \
-        ZeroMemory(&(pi), sizeof(pi));                                  \
-        if (CreateProcess(NULL, (cmdLine), NULL, NULL, FALSE, 0,        \
-                          NULL, NULL, &(si), &(pi))) {                  \
-            WaitForSingleObject((pi).hProcess, INFINITE);               \
-            CloseHandle((pi).hProcess); CloseHandle((pi).hThread);      \
-        }                                                               \
-    } while(0)
+// Макрос для негайного запуску процесу (чекає завершення)
+static void RunWait(LPTSTR cmdLine)
+{
+    STARTUPINFO si; PROCESS_INFORMATION pi;
+    ZeroMemory(&si, sizeof(si)); si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+    if (CreateProcess(NULL, cmdLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
+        WaitForSingleObject(pi.hProcess, INFINITE);
+        CloseHandle(pi.hProcess); CloseHandle(pi.hThread);
+    }
+}
 
-// Macro for deferred process launch (does not wait)
-#define RUN_PROCESS_NOWAIT(cmdLine, si, pi)                            \
-    do {                                                                \
-        ZeroMemory(&(si), sizeof(si)); (si).cb = sizeof(si);           \
-        ZeroMemory(&(pi), sizeof(pi));                                  \
-        CreateProcess(NULL, (cmdLine), NULL, NULL, FALSE, 0,            \
-                      NULL, NULL, &(si), &(pi));                        \
-    } while(0)
+
+// Макрос для відкладеного запуску процесу (не чекає)
+static void RunNoWait(LPTSTR cmdLine, PROCESS_INFORMATION* out)
+{
+    STARTUPINFO si; PROCESS_INFORMATION pi;
+    ZeroMemory(&si, sizeof(si)); si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+    CreateProcess(NULL, cmdLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+    if (out) *out = pi;
+}
 
 typedef enum { ENC_ANSI, ENC_UNICODE_UTF16LE } FileEncoding;
 
@@ -108,7 +106,7 @@ static void AnalyzeUnicodeFile(HANDLE hFile, DWORD fileSize)
 
 static void AnalyzeFile(LPCTSTR filePath)
 {
-    // Print filename using wide output briefly then restore
+    // Короткочасно вивести ім'я файлу у широкому форматі, потім відновити режим
     printf("\n--- File: ");
     int old = _setmode(_fileno(stdout), _O_U16TEXT);
     wprintf(L"%s", filePath);
@@ -181,7 +179,7 @@ static void ListProcessModules(DWORD pid)
     {
         do
         {
-            // Print module path using wide output
+            // Вивести шлях модуля у широкому форматі
             int old = _setmode(_fileno(stdout), _O_U16TEXT);
             wprintf(L"  %s\n", me.szExePath);
             _setmode(_fileno(stdout), old);
