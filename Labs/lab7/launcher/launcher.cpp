@@ -12,12 +12,17 @@
 // макрос для негайного запуску процесу (чекає на завершення)
 static void RunWait(LPTSTR cmdLine)
 {
-    STARTUPINFO si; PROCESS_INFORMATION pi;
-    ZeroMemory(&si, sizeof(si)); si.cb = sizeof(si);
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
+
     if (CreateProcess(NULL, cmdLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
         WaitForSingleObject(pi.hProcess, INFINITE);
-        CloseHandle(pi.hProcess); CloseHandle(pi.hThread);
+        CloseHandle(pi.hProcess);
+        CloseHandle(pi.hThread);
     }
     else {
         printf("[ERROR] CreateProcess failed: code %lu\n", GetLastError());
@@ -27,10 +32,15 @@ static void RunWait(LPTSTR cmdLine)
 // макрос для відкладеного запуску процесу (не чекає)
 static void RunNoWait(LPTSTR cmdLine, PROCESS_INFORMATION* out)
 {
-    STARTUPINFO si; PROCESS_INFORMATION pi;
-    ZeroMemory(&si, sizeof(si)); si.cb = sizeof(si);
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
+
     CreateProcess(NULL, cmdLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
+
     if (out) *out = pi;
 }
 
@@ -39,11 +49,16 @@ static BOOL RunProcessWithPriority(LPTSTR cmdLine, DWORD priorityClass)
 {
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
-    ZeroMemory(&si, sizeof(si)); si.cb = sizeof(si);
+
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
 
-    BOOL ok = CreateProcess(NULL, cmdLine, NULL, NULL, FALSE,
-        priorityClass, NULL, NULL, &si, &pi);
+    BOOL ok = CreateProcess(
+        NULL, cmdLine, NULL, NULL, FALSE,
+        priorityClass, NULL, NULL, &si, &pi
+    );
+
     if (!ok)
     {
         printf("[ERROR] CreateProcess failed: code %lu\n", GetLastError());
@@ -56,11 +71,13 @@ static BOOL RunProcessWithPriority(LPTSTR cmdLine, DWORD priorityClass)
     WaitForSingleObject(pi.hProcess, INFINITE);
 
     DWORD exitCode = 0;
+
     GetExitCodeProcess(pi.hProcess, &exitCode);
     printf("  Process exited with code: %lu\n", exitCode);
 
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
+
     return TRUE;
 }
 
@@ -75,24 +92,30 @@ int _tmain(int argc, TCHAR* argv[])
     if (argc >= 4) _tcsncpy_s(dir, MAX_PATH, argv[3], _TRUNCATE);
 
     if (argc < 2) {
-        TCHAR* e = NULL; size_t l = 0;
+        TCHAR* e = NULL;
+        size_t l = 0;
         if (_tdupenv_s(&e, &l, _T("PROG1_PATH")) == 0 && e)
         {
-            _tcsncpy_s(prog1, MAX_PATH, e, _TRUNCATE); free(e);
+            _tcsncpy_s(prog1, MAX_PATH, e, _TRUNCATE);
+            free(e);
         }
     }
     if (argc < 3) {
-        TCHAR* e = NULL; size_t l = 0;
+        TCHAR* e = NULL;
+        size_t l = 0;
         if (_tdupenv_s(&e, &l, _T("PROG2_PATH")) == 0 && e)
         {
-            _tcsncpy_s(prog2, MAX_PATH, e, _TRUNCATE); free(e);
+            _tcsncpy_s(prog2, MAX_PATH, e, _TRUNCATE);
+            free(e);
         }
     }
     if (argc < 4) {
-        TCHAR* e = NULL; size_t l = 0;
+        TCHAR* e = NULL;
+        size_t l = 0;
         if (_tdupenv_s(&e, &l, _T("OUTPUT_DIR")) == 0 && e)
         {
-            _tcsncpy_s(dir, MAX_PATH, e, _TRUNCATE); free(e);
+            _tcsncpy_s(dir, MAX_PATH, e, _TRUNCATE);
+            free(e);
         }
     }
 
@@ -104,14 +127,20 @@ int _tmain(int argc, TCHAR* argv[])
     // запуск програми 1
     printf("\n[1/2] Launching Program 1 (NORMAL_PRIORITY_CLASS)...\n");
     TCHAR cmd1[MAX_PATH * 2];
+
     _stprintf_s(cmd1, MAX_PATH * 2, _T("%s %s"), prog1, dir);
-    STARTUPINFO si1; PROCESS_INFORMATION pi1;
+
+    STARTUPINFO si1;
+    PROCESS_INFORMATION pi1;
+
     RunWait(cmd1);
     printf("[1/2] Program 1 finished.\n");
     
     // запуск програми 2
     printf("\n[2/2] Launching Program 2 (BELOW_NORMAL_PRIORITY_CLASS)...\n");
+    
     TCHAR cmd2[MAX_PATH * 2];
+
     _stprintf_s(cmd2, MAX_PATH * 2, _T("%s %s"), prog2, dir);
     RunProcessWithPriority(cmd2, BELOW_NORMAL_PRIORITY_CLASS);
     printf("[2/2] Program 2 finished.\n");
