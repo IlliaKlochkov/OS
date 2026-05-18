@@ -9,7 +9,7 @@
 #include <fcntl.h>
 #include <tlhelp32.h>
 
-// Макрос для негайного запуску процесу (чекає завершення)
+// Допоміжна функція для негайного запуску процесу (чекає завершення)
 static void RunWait(LPTSTR cmdLine)
 {
     STARTUPINFO si; 
@@ -27,7 +27,7 @@ static void RunWait(LPTSTR cmdLine)
 }
 
 
-// Макрос для відкладеного запуску процесу (не чекає)
+// Допоміжна функція для відкладеного запуску процесу (не чекає)
 static void RunNoWait(LPTSTR cmdLine, PROCESS_INFORMATION* out)
 {
     STARTUPINFO si;
@@ -188,6 +188,45 @@ static void AnalyzeFile(LPCTSTR filePath)
     CloseHandle(hFile);
 }
 
+static void ListProcessModulesShort(DWORD pid)
+{
+    HANDLE hSnap = CreateToolhelp32Snapshot(
+        TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, pid
+    );
+
+    if (hSnap == INVALID_HANDLE_VALUE)
+    {
+        printf("    DLL: access denied or unavailable\n");
+        return;
+    }
+
+    MODULEENTRY32 me;
+    me.dwSize = sizeof(MODULEENTRY32);
+
+    int moduleCount = 0;
+
+    if (Module32First(hSnap, &me))
+    {
+        do
+        {
+            moduleCount++;
+
+            int old = _setmode(_fileno(stdout), _O_U16TEXT);
+            wprintf(L"    DLL %d: %s\n", moduleCount, me.szModule);
+            _setmode(_fileno(stdout), old);
+
+            if (moduleCount >= 5)
+            {
+                printf("    ...\n");
+                break;
+            }
+
+        } while (Module32Next(hSnap, &me));
+    }
+
+    CloseHandle(hSnap);
+}
+
 static void ListRunningProcesses(void)
 {
     printf("\n=== Running processes ===\n");
@@ -215,34 +254,21 @@ static void ListRunningProcesses(void)
     do
     {
         count++;
-        printf("[%3d] PID: %-6lu\n", count, pe.th32ProcessID);
+
+        int old = _setmode(_fileno(stdout), _O_U16TEXT);
+        wprintf(L"\n[%3d] PID: %-6lu  Name: %s  Threads: %lu\n",
+            count,
+            pe.th32ProcessID,
+            pe.szExeFile,
+            pe.cntThreads
+        );
+        _setmode(_fileno(stdout), old);
+
+        ListProcessModulesShort(pe.th32ProcessID);
+
     } while (Process32Next(hSnap, &pe));
 
-    printf("Total processes: %d\n", count);
-    CloseHandle(hSnap);
-}
-
-static void ListProcessModules(DWORD pid)
-{
-    printf("\n=== Modules of current process (PID=%lu) ===\n", pid);
-
-    HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
-
-    if (hSnap == INVALID_HANDLE_VALUE) return;
-
-    MODULEENTRY32 me;
-    me.dwSize = sizeof(MODULEENTRY32);
-
-    if (Module32First(hSnap, &me))
-    {
-        do
-        {
-            // Вивести шлях модуля у широкому форматі
-            int old = _setmode(_fileno(stdout), _O_U16TEXT);
-            wprintf(L"  %s\n", me.szExePath);
-            _setmode(_fileno(stdout), old);
-        } while (Module32Next(hSnap, &me));
-    }
+    printf("\nTotal processes: %d\n", count);
     CloseHandle(hSnap);
 }
 
@@ -295,9 +321,6 @@ int _tmain(int argc, TCHAR* argv[])
     }
 
     ListRunningProcesses();
-
-    DWORD pid = GetCurrentProcessId();
-    ListProcessModules(pid);
 
     printf("\nProgram 2 done.\n");
     return 0;

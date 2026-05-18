@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Макрос для негайного запуску процесу (чекає завершення)
+// Допоміжна функція для негайного запуску процесу (чекає завершення)
 static void RunWait(LPTSTR cmdLine)
 {
     STARTUPINFO si;
@@ -25,7 +25,7 @@ static void RunWait(LPTSTR cmdLine)
 }
 
 
-// Макрос для відкладеного запуску процесу (не чекає)
+// Допоміжна функція для відкладеного запуску процесу (не чекає)
 static void RunNoWait(LPTSTR cmdLine, PROCESS_INFORMATION* out)
 {
     STARTUPINFO si;
@@ -100,7 +100,7 @@ static void OpenInNotepad(LPCTSTR filePath)
 {
     TCHAR cmd[MAX_PATH * 2];
     
-    _stprintf_s(cmd, MAX_PATH * 2, _T("notepad.exe %s"), filePath);
+    _stprintf_s(cmd, MAX_PATH * 2, _T("notepad.exe \"%s\""), filePath);
     PROCESS_INFORMATION pi;
     RunNoWait(cmd, &pi);
     Sleep(800);
