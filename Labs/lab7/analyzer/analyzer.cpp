@@ -190,6 +190,12 @@ static void AnalyzeFile(LPCTSTR filePath)
 
 static void ListProcessModulesShort(DWORD pid)
 {
+    if (pid == 0)
+    {
+        printf("    DLL: access denied or unavailable\n");
+        return;
+    }
+
     HANDLE hSnap = CreateToolhelp32Snapshot(
         TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, pid
     );
