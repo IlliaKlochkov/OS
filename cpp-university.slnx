@@ -16,6 +16,14 @@
     <Project Path="Labs/lab7/analyzer/analyzer.vcxproj" Id="e177039b-11d1-47b9-80f6-f6b4435fe04a" />
     <Project Path="Labs/lab7/launcher/launcher.vcxproj" Id="5b83e6bf-daef-4ca5-a65d-fc457075dd96" />
   </Folder>
+
+  <Folder Name="/Labs/lab3/">
+    <Project Path="Labs/lab3/rsa_lib_dyn/rsa_lib_dyn.vcxproj" Id="11d7f814-e7e5-40de-8890-14642e22ea48" />
+    <Project Path="Labs/lab3/CheckSumCalc/CheckSumCalc.vcxproj" Id="16132bdd-d1b6-4530-bc1e-70e6639680a7" />
+    <Project Path="Labs/lab3/resource_ukr/resource_ukr.vcxproj" Id="6c262db6-cb73-46e0-b8c6-71b3bf90f0a4" />
+    <Project Path="Labs/lab3/resource_eng/resource_eng.vcxproj" Id="dcfeeecb-6770-4ee1-a840-97d577742edc" />
+    <Project Path="Labs/lab3/lab3_main/lab3_main.vcxproj" Id="2abdbe7a-9214-42dd-addf-81ba2c63306f" />
+  </Folder>
   <Folder Name="/Labs/lab8/">
     <Project Path="Labs/lab8/Lab8_main/Lab8_main.vcxproj" Id="d4349e8e-f49b-4d23-83cf-fbbbb89dc597" />
     <Project Path="Labs/lab8/Lab8_scheduler/Lab8_scheduler.vcxproj" Id="4210e690-d3ba-4bc8-b9cc-4cd1208dbc38" />
