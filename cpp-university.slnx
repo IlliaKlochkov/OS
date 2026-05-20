@@ -11,6 +11,14 @@
     <Project Path="Labs/lab2/lab2_main/Lab2_main.vcxproj" Id="c44635b9-6d28-4d98-9a20-74328ab7273d" />
     <Project Path="Labs/lab2/rsa_lib/rsa_lib.vcxproj" Id="9a07b8a6-c878-4a33-bf95-b5fed13f73cd" />
   </Folder>
+  <Folder Name="/Labs/lab5/">
+    <Project Path="Labs/lab5/BestFit/BestFit.vcxproj" Id="329c8965-2502-494d-999b-53982359106d" />
+    <Project Path="Labs/lab5/MailboxMapped/MailboxMapped.vcxproj" Id="5d46a878-24d6-4050-89b0-2f081e6fcb18" />
+    <Project Path="Labs/lab5/MemInfo1/MemInfo1.vcxproj" Id="a03b5e12-1744-4efd-ade7-b19714c87f30" />
+    <Project Path="Labs/lab5/MemInfo2/MemInfo2.vcxproj" Id="dfae0692-ae8e-451c-bcb7-1db3f56cd369" />
+    <Project Path="Labs/lab5/PageReplacement/PageReplacement.vcxproj" Id="f95189e1-ea95-41fa-bef6-8d743ba17291" />
+    <Project Path="Labs/lab5/VirtualMemory/VirtualMemory.vcxproj" Id="e54e1eac-413a-4f1e-82ef-9763a14e7e68" />
+  </Folder>
   <Folder Name="/Labs/lab7/">
     <Project Path="Labs/lab7/creator/creator.vcxproj" Id="65bc9da9-f0f3-4bc2-a67a-2ca6d913f17e" />
     <Project Path="Labs/lab7/analyzer/analyzer.vcxproj" Id="e177039b-11d1-47b9-80f6-f6b4435fe04a" />
