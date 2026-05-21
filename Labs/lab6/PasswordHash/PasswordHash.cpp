@@ -1,20 +1,13 @@
-// Лабораторна робота №6 — Завдання 1
-// Встановлення та перевірка пароля з обчисленням гешу (MD5) і безпечним зберіганням.
-// Буфер plaintext-пароля захищається від вивантаження на диск (VirtualAlloc + VirtualLock),
-// після обчислення гешу затирається «сміттям», далі VirtualUnlock + VirtualFree.
-
-#include <windows.h>
+﻿#include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
-// ======================================================
-// MD5 (компактна самодостатня реалізація, RFC 1321)
-// ======================================================
 
+// MD5 (компактна самодостатня реалізація, RFC 1321)
 typedef struct {
-    DWORD a, b, c, d;       // стан гешу
+    DWORD a, b, c, d;       // стан хешу
     DWORD64 len;            // загальна довжина повідомлення (байт)
     BYTE buffer[64];        // незавершений блок
 } MD5_CTX;
@@ -25,7 +18,7 @@ static DWORD rotl(DWORD x, int n)
     return (x << n) | (x >> (32 - n));
 }
 
-// чотири логічні функції, по одній на кожен раунд
+// чотири логічні функції — по одній на раунд
 static DWORD funcF(DWORD b, DWORD c, DWORD d) { return (b & c) | (~b & d); }
 static DWORD funcG(DWORD b, DWORD c, DWORD d) { return (b & d) | (c & ~d); }
 static DWORD funcH(DWORD b, DWORD c, DWORD d) { return b ^ c ^ d; }
@@ -39,8 +32,7 @@ static const int S[64] = {
     6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21
 };
 
-// Константи K не задаємо таблицею, а рахуємо за формулою зі стандарту:
-// K[i] = ціла частина від |sin(i+1)| * 2^32. Заповнюємо лише раз.
+// константи k не зберігаються вручну, обчислюються за стандартною формулою
 static DWORD K[64];
 static bool kReady = false;
 
@@ -53,7 +45,7 @@ static void prepareK()
 
 static void md5_block(MD5_CTX* ctx, const BYTE* p)
 {
-    // розбиваємо 64 байти блоку на 16 слів по 4 байти (молодший байт першим)
+    // розбиття 64 байтів блоку на 16 слів по 4 байти (молодший байт перший)
     DWORD M[16];
     for (int i = 0; i < 16; i++)
         M[i] = (DWORD)p[i * 4]
@@ -104,7 +96,7 @@ static void md5_block(MD5_CTX* ctx, const BYTE* p)
 
 static void md5_init(MD5_CTX* ctx)
 {
-    if (!kReady) prepareK();        // підготувати константи при першому виклику
+    if (!kReady) prepareK();        // підготовка констант при першому виклику
 
     ctx->a = 0x67452301;
     ctx->b = 0xefcdab89;
@@ -168,7 +160,7 @@ static void md5_final(MD5_CTX* ctx, BYTE out[16])
     }
 }
 
-// Обчислити MD5 від буфера data довжиною len → out[16]
+// обчислення md5 від буфера data довжиною len → out[16]
 static void md5(const BYTE* data, size_t len, BYTE out[16])
 {
     MD5_CTX ctx;
@@ -177,9 +169,6 @@ static void md5(const BYTE* data, size_t len, BYTE out[16])
     md5_final(&ctx, out);
 }
 
-// ======================================================
-// Допоміжні
-// ======================================================
 
 #define SALT_SIZE 8
 #define HASH_SIZE 16
@@ -199,13 +188,13 @@ static void printHex(const char* title, const BYTE* data, size_t len)
     printf("\n");
 }
 
-// Заповнення буфера випадковими байтами (для солі та затирання пам'яті сміттям)
+// заповнення буфера випадковими байтами (для солі і затирання пам'яті)
 static void randomBytes(BYTE* buf, size_t len)
 {
     static bool seeded = false;
     if (!seeded)
     {
-        srand((unsigned)GetTickCount());    // ініціалізуємо генератор один раз
+        srand((unsigned)GetTickCount());    // ініціалізація генератора один раз
         seeded = true;
     }
 
@@ -213,11 +202,7 @@ static void randomBytes(BYTE* buf, size_t len)
         buf[i] = (BYTE)(rand() & 0xFF);
 }
 
-// ======================================================
-// Перевірка «хорошого» пароля
-// ======================================================
 
-// Вимоги: довжина >= 8, є велика та мала літери, цифра і спецсимвол.
 static bool isStrongPassword(const char* p)
 {
     size_t len = strlen(p);
@@ -261,12 +246,7 @@ static bool isStrongPassword(const char* p)
     return true;
 }
 
-// ======================================================
-// Безпечний ввід пароля у захищений (locked) буфер
-// ======================================================
 
-// Зчитує пароль з консолі без відлуння у буфер buf (виділений VirtualAlloc+VirtualLock).
-// Повертає довжину пароля.
 static size_t readPasswordSecure(const char* prompt, char* buf, size_t bufSize)
 {
     printf("%s", prompt);
@@ -274,7 +254,7 @@ static size_t readPasswordSecure(const char* prompt, char* buf, size_t bufSize)
     HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
     DWORD oldMode = 0;
     GetConsoleMode(hIn, &oldMode);
-    SetConsoleMode(hIn, oldMode & ~ENABLE_ECHO_INPUT);   // вимикаємо відлуння
+    SetConsoleMode(hIn, oldMode & ~ENABLE_ECHO_INPUT);   // вимкнути відлуння
 
     size_t i = 0;
     int ch;
@@ -285,12 +265,11 @@ static size_t readPasswordSecure(const char* prompt, char* buf, size_t bufSize)
     }
     buf[i] = '\0';
 
-    SetConsoleMode(hIn, oldMode);                        // відновлюємо режим
+    SetConsoleMode(hIn, oldMode);                        // відновити режим
     printf("\n");
     return i;
 }
 
-// Виділяє захищений буфер: VirtualAlloc + VirtualLock (не потрапить у файл підкачки).
 static char* allocLockedBuffer(size_t size)
 {
     char* buf = (char*)VirtualAlloc(NULL, size,
@@ -305,34 +284,28 @@ static char* allocLockedBuffer(size_t size)
     return buf;
 }
 
-// Затирає буфер «сміттям», знімає блокування і звільняє пам'ять.
 static void wipeAndFree(char* buf, size_t size)
 {
     if (!buf) return;
     SecureZeroMemory(buf, size);            // спочатку нулі
-    randomBytes((BYTE*)buf, size);          // потім випадкове «сміття»
-    VirtualUnlock(buf, size);               // знімаємо фіксацію одразу після затирання
+    randomBytes((BYTE*)buf, size);          // потім випадкові байти
+    VirtualUnlock(buf, size);               // зняття блокування після затирання
     VirtualFree(buf, 0, MEM_RELEASE);
 }
 
-static bool hashPassword(const BYTE salt[SALT_SIZE], const char* pwd, size_t pwdLen, BYTE out[HASH_SIZE])
+static void hashPassword(const BYTE salt[SALT_SIZE], const char* pwd, size_t pwdLen, BYTE out[HASH_SIZE])
 {
     size_t total = SALT_SIZE + pwdLen;
     char* tmp = allocLockedBuffer(total ? total : 1);
-    if (!tmp)
-        return false;
+    if (!tmp) return;
 
     memcpy(tmp, salt, SALT_SIZE);
     memcpy(tmp + SALT_SIZE, pwd, pwdLen);
     md5((const BYTE*)tmp, total, out);
 
     wipeAndFree(tmp, total ? total : 1);
-    return true;
 }
 
-// ======================================================
-// Встановлення / перевірка пароля
-// ======================================================
 
 static bool setPassword(BYTE storedHash[HASH_SIZE], BYTE salt[SALT_SIZE])
 {
@@ -356,19 +329,12 @@ static bool setPassword(BYTE storedHash[HASH_SIZE], BYTE salt[SALT_SIZE])
     else
     {
         randomBytes(salt, SALT_SIZE);                 // унікальна сіль
-
-        if (!hashPassword(salt, p1, len1, storedHash))
-        {
-            printf("  [ERROR] Не вдалося обчислити геш\n");
-        }
-        else
-        {
-            printf("  [+] Пароль встановлено успішно\n");
-            ok = true;
-        }
+        hashPassword(salt, p1, len1, storedHash);     // зберігаються лише хеш і сіль
+        printf("  [+] Пароль встановлено успішно\n");
+        ok = true;
     }
 
-    // Затираємо обидва plaintext-буфери одразу після використання
+    // затирання обох буферів з відкритим паролем після використання
     wipeAndFree(p1, PWD_MAX);
     wipeAndFree(p2, PWD_MAX);
     return ok;
@@ -382,23 +348,13 @@ static bool checkPassword(const BYTE storedHash[HASH_SIZE], const BYTE salt[SALT
     size_t len = readPasswordSecure("Введіть пароль для перевірки: ", p, PWD_MAX);
 
     BYTE h[HASH_SIZE];
-
-    if (!hashPassword(salt, p, len, h))
-    {
-        wipeAndFree(p, PWD_MAX);
-        return false;
-    }
-
-    wipeAndFree(p, PWD_MAX);
+    hashPassword(salt, p, len, h);
+    wipeAndFree(p, PWD_MAX);                           // пароль більше не потрібен — затирання буфера
 
     bool match = (memcmp(h, storedHash, HASH_SIZE) == 0);
     SecureZeroMemory(h, HASH_SIZE);
     return match;
 }
-
-// ======================================================
-// main
-// ======================================================
 
 int main()
 {
@@ -410,7 +366,7 @@ int main()
     BYTE storedHash[HASH_SIZE];
     BYTE salt[SALT_SIZE];
 
-    // 1. Встановлення пароля
+    // 1. встановлення пароля
     while (!setPassword(storedHash, salt))
     {
         if (feof(stdin))
@@ -426,14 +382,14 @@ int main()
     printHex("Геш пароля  : ", storedHash, HASH_SIZE);
     printf("(У пам'яті/на диску зберігаються лише сіль і геш, відкритого пароля немає.)\n\n");
 
-    // 2. Перевірка правильним паролем
+    // 2. перевірка правильним паролем
     printf("\n--- Перевірка №1 (введіть правильний пароль) -\n");
     if (checkPassword(storedHash, salt))
         printf("  >> ДОСТУП ДОЗВОЛЕНО\n\n");
     else
         printf("  >> ВІДМОВА\n\n");
 
-    // 3. Перевірка довільним паролем
+    // 3. перевірка довільним паролем
     printf("--- Перевірка №2 (введіть будь-який пароль) --\n");
     if (checkPassword(storedHash, salt))
         printf("  >> ДОСТУП ДОЗВОЛЕНО\n\n");

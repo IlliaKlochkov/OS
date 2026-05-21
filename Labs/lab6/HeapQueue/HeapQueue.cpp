@@ -1,19 +1,12 @@
-// Лабораторна робота №6 — Завдання 2
-// Клас черги (FIFO), побудований на функціях роботи з купою:
-// HeapCreate (приватна купа) / HeapAlloc / HeapFree / HeapSize / HeapDestroy.
-// Кожен вузол черги виділяється окремо у приватній купі.
-
-#include <windows.h>
+﻿#include <windows.h>
 #include <stdio.h>
 
-// ======================================================
-// Черга на приватній купі
-// ======================================================
 
+// черга на приватній купі
 struct Node
 {
-    int   value;    // корисні дані
-    Node* next;     // наступний вузол
+    int   value;    // дані
+    Node* next;     // вказівник на наступний
 };
 
 class HeapQueue
@@ -21,8 +14,8 @@ class HeapQueue
 public:
     HeapQueue()
     {
-        // Приватна купа: dwFlags=0, початковий і максимальний розмір=0 (за замовчуванням,
-        // тобто купа росте динамічно). HEAP_NO_SERIALIZE не використовуємо — доступ із одного потоку.
+        // приватна купа: dwFlags=0, старт/макс=0 (динамічне розширення).
+        // HEAP_NO_SERIALIZE не використовується — доступ лише з одного потоку
         hHeap = HeapCreate(0, 0, 0);
         if (!hHeap)
             printf("[ERROR] HeapCreate failed: %lu\n", GetLastError());
@@ -33,11 +26,11 @@ public:
 
     ~HeapQueue()
     {
-        // HeapDestroy звільняє ВСЮ купу одразу — окремий HeapFree для кожного вузла не потрібен.
+        // heapdestroy звільняє всю купу одразу — окремі heapfree для вузлів не потрібні
         if (hHeap) HeapDestroy(hHeap);
     }
 
-    // Додати елемент у хвіст
+    // додання елементу у хвіст
     bool enqueue(int v)
     {
         Node* n = (Node*)HeapAlloc(hHeap, HEAP_ZERO_MEMORY, sizeof(Node));
@@ -56,11 +49,11 @@ public:
         tail = n;
 
         count++;
-        allocBytes += HeapSize(hHeap, 0, n);   // фактичний розмір блоку, виділеного купою
+        allocBytes += HeapSize(hHeap, 0, n);   // фактичний розмір блоку в купі
         return true;
     }
 
-    // Зняти елемент з голови
+    // знятитя елементу з голови
     bool dequeue(int& out)
     {
         if (!head) return false;
@@ -87,7 +80,7 @@ public:
     size_t size() const { return count; }
     SIZE_T bytes() const { return allocBytes; }
 
-    // Очистити чергу (звільнити кожен вузол окремо через HeapFree)
+    // очистка черги
     void clear()
     {
         int tmp;
@@ -102,9 +95,9 @@ private:
     SIZE_T allocBytes;
 };
 
-// ======================================================
-// Програма перевірки
-// ======================================================
+
+// тестування
+
 
 static void printSep(const char* title)
 {
@@ -122,7 +115,7 @@ int main()
 
     HeapQueue q;
 
-    // 1. Додавання елементів
+    // 1. додавання елементів
     printf("\n--- 1. Додавання елементів (enqueue) --------\n");
     int data[] = { 10, 20, 30, 40, 50 };
     for (int v : data)
@@ -132,25 +125,25 @@ int main()
             v, q.size(), (unsigned long long)q.bytes());
     }
 
-    // 2. Перегляд голови
+    // 2. перегляд голови
     printf("\n--- 2. Поточний стан ------------------------\n");
     int f = 0;
     if (q.front(f)) printf("  Голова черги (front): %d\n", f);
     printf("  Кількість елементів : %zu\n", q.size());
 
-    // 3. Зняття елементів — порядок має співпадати з порядком додавання (FIFO)
+    // 3. зняття елементів — порядок має співпадати з порядком додавання (FIFO)
     printf("\n--- 3. Зняття (dequeue), очікуємо 10..50 ----\n");
     int out;
     while (q.dequeue(out))
         printf("  dequeue() = %d  -> залишилось %zu, у купі %llu байт\n",
             out, q.size(), (unsigned long long)q.bytes());
 
-    // 4. Перевірка порожньої черги
+    // 4. перевірка порожньої черги
     printf("\n--- 4. Перевірка порожньої черги ------------\n");
     printf("  isEmpty() = %s\n", q.isEmpty() ? "true" : "false");
     printf("  dequeue() з порожньої = %s\n", q.dequeue(out) ? "успіх" : "хибно (черга порожня)");
 
-    // 5. Повторне використання + очищення
+    // 5. повторне використання + очищення
     printf("\n--- 5. Повторне заповнення і clear() --------\n");
     for (int i = 1; i <= 3; i++) q.enqueue(i * 100);
     printf("  Після додавання 3 елементів: розмір = %zu\n", q.size());

@@ -1,10 +1,10 @@
-#include <windows.h>
+﻿#include <windows.h>
 #include <stdio.h>
 #include <vector>
 
 using namespace std;
 
-// Стандартні параметри кешу:
+// стандартні параметри кешу:
 #define BLOCK_SIZE  64     // b: розмір блоку в байтах -> offset = 6 біт
 #define LINES      128     // l: кількість рядків кешу -> line = 7 біт
 #define WAYS         4     // n: блоків у рядку (4-асоціативний кеш)
@@ -17,7 +17,7 @@ static void printSep(const char* title)
     printf("=========================================================\n");
 }
 
-// Один блок усередині рядка кешу (way)
+// блок у рядку кешу (way)
 struct Way
 {
     bool valid;
@@ -25,11 +25,8 @@ struct Way
     int  lastUse;   // момент останнього звернення (для LRU)
 };
 
-// ======================================================
-// Прогін трасою адрес з витісненням за алгоритмом LRU.
-// Розклад адреси A: offset = A & 0x3F, line = (A >> 6) & 0x7F, tag = A >> 13.
-// Повертає кількість промахів.
-// ======================================================
+
+// прогін трасою адрес з витісненням за алгоритмом LRU. Розклад адреси A: offset = A & 0x3F, line = (A >> 6) & 0x7F, tag = A >> 13. Повертає кількість промахів.
 
 static int lruCache(const vector<UINT>& trace, bool verbose)
 {
@@ -47,14 +44,14 @@ static int lruCache(const vector<UINT>& trace, bool verbose)
 
         Way* set = cache[line];
 
-        // шукаємо влучення серед way цього рядка
+        // пошук влучення в рядку
         bool hit = false;
         for (int w = 0; w < WAYS; w++)
             if (set[w].valid && set[w].tag == tag) { hit = true; set[w].lastUse = t; break; }
 
         if (!hit)
         {
-            // шукаємо вільний way або той, що найдовше не використовувався
+            // вибір way для витіснення: вільний або найменш використовуваний
             int repl = 0;
             for (int w = 0; w < WAYS; w++)
             {
@@ -75,7 +72,7 @@ static int lruCache(const vector<UINT>& trace, bool verbose)
 
         if (verbose)
         {
-            // показуємо стан рядка (теги усіх way) після звернення
+            // вивід стану рядка після звернення
             printf("  крок %2d  A=0x%05X  line=%3u  |", t + 1, A, line);
             for (int w = 0; w < WAYS; w++)
                 set[w].valid ? printf(" %04X", set[w].tag) : printf("  -  ");
@@ -91,10 +88,6 @@ static int lruCache(const vector<UINT>& trace, bool verbose)
     return misses;
 }
 
-// ======================================================
-// main
-// ======================================================
-
 int main()
 {
     SetConsoleOutputCP(65001);
@@ -104,18 +97,17 @@ int main()
     printf("  Параметри: b=%d байт, l=%d рядків, n=%d way -> кеш %d КБ\n",
         BLOCK_SIZE, LINES, WAYS, BLOCK_SIZE * LINES * WAYS / 1024);
 
-    // Сценарій 1: 5 різних блоків лягають в один рядок (line=0) при n=4 way.
-    // Адреси кратні 0x2000 мають однаковий line, але різний tag -> спрацьовує LRU.
+    // сценарій 1: переповнення рядка (адреси кратні 0x2000 мають однаковий line, але різний tag -> LRU)
     printf("\n--- Сценарій 1: переповнення рядка ----------\n");
     vector<UINT> s1 = { 0x00000, 0x02000, 0x04000, 0x06000, 0x00010, 0x08000, 0x02000 };
     lruCache(s1, true);
 
-    // Сценарій 2: повторні звернення до тих самих даних -> часова локальність.
+    // сценарій 2: часова локальність (повторні звернення)
     printf("\n--- Сценарій 2: часова локальність ----------\n");
     vector<UINT> s2 = { 0x01000, 0x01004, 0x01008, 0x01000, 0x01004, 0x01008, 0x0100C };
     lruCache(s2, true);
 
-    // Сценарій 3: послідовний обхід у межах одного блоку -> просторова локальність.
+    // сценарій 3: просторова локальність (послідовний обхід в межах блоку)
     printf("\n--- Сценарій 3: просторова локальність ------\n");
     vector<UINT> s3;
     for (UINT off = 0; off < BLOCK_SIZE; off += 16) s3.push_back(0x03000 + off);

@@ -19,18 +19,23 @@
     <Project Path="Labs/lab5/PageReplacement/PageReplacement.vcxproj" Id="f95189e1-ea95-41fa-bef6-8d743ba17291" />
     <Project Path="Labs/lab5/VirtualMemory/VirtualMemory.vcxproj" Id="e54e1eac-413a-4f1e-82ef-9763a14e7e68" />
   </Folder>
+  <Folder Name="/Labs/lab6/">
+    <Project Path="Labs/lab6/CacheLRU/CacheLRU.vcxproj" Id="c5a99b54-0b15-47d2-a99e-0e4409458c55" />
+    <Project Path="Labs/lab6/HeapQueue/HeapQueue.vcxproj" Id="aa76f810-cb15-4d25-86a8-fb0657c50c4f" />
+    <Project Path="Labs/lab6/PasswordHash/PasswordHash.vcxproj" Id="b60ec4bf-7caf-4e5c-8739-ca5b29bd443e" />
+  </Folder>
   <Folder Name="/Labs/lab7/">
-    <Project Path="Labs/lab7/creator/creator.vcxproj" Id="65bc9da9-f0f3-4bc2-a67a-2ca6d913f17e" />
     <Project Path="Labs/lab7/analyzer/analyzer.vcxproj" Id="e177039b-11d1-47b9-80f6-f6b4435fe04a" />
+    <Project Path="Labs/lab7/creator/creator.vcxproj" Id="65bc9da9-f0f3-4bc2-a67a-2ca6d913f17e" />
     <Project Path="Labs/lab7/launcher/launcher.vcxproj" Id="5b83e6bf-daef-4ca5-a65d-fc457075dd96" />
   </Folder>
 
   <Folder Name="/Labs/lab3/">
-    <Project Path="Labs/lab3/rsa_lib_dyn/rsa_lib_dyn.vcxproj" Id="11d7f814-e7e5-40de-8890-14642e22ea48" />
     <Project Path="Labs/lab3/CheckSumCalc/CheckSumCalc.vcxproj" Id="16132bdd-d1b6-4530-bc1e-70e6639680a7" />
-    <Project Path="Labs/lab3/resource_ukr/resource_ukr.vcxproj" Id="6c262db6-cb73-46e0-b8c6-71b3bf90f0a4" />
-    <Project Path="Labs/lab3/resource_eng/resource_eng.vcxproj" Id="dcfeeecb-6770-4ee1-a840-97d577742edc" />
     <Project Path="Labs/lab3/lab3_main/lab3_main.vcxproj" Id="2abdbe7a-9214-42dd-addf-81ba2c63306f" />
+    <Project Path="Labs/lab3/resource_eng/resource_eng.vcxproj" Id="dcfeeecb-6770-4ee1-a840-97d577742edc" />
+    <Project Path="Labs/lab3/resource_ukr/resource_ukr.vcxproj" Id="6c262db6-cb73-46e0-b8c6-71b3bf90f0a4" />
+    <Project Path="Labs/lab3/rsa_lib_dyn/rsa_lib_dyn.vcxproj" Id="11d7f814-e7e5-40de-8890-14642e22ea48" />
   </Folder>
   <Folder Name="/Labs/lab8/">
     <Project Path="Labs/lab8/Lab8_main/Lab8_main.vcxproj" Id="d4349e8e-f49b-4d23-83cf-fbbbb89dc597" />
