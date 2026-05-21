@@ -2,7 +2,6 @@
 // Встановлення та перевірка пароля з обчисленням гешу (MD5) і безпечним зберіганням.
 // Буфер plaintext-пароля захищається від вивантаження на диск (VirtualAlloc + VirtualLock),
 // після обчислення гешу затирається «сміттям», далі VirtualUnlock + VirtualFree.
-// Автори: Кулик Євген, Клочков Ілля, Калашник Андрій. 2026.
 
 #include <windows.h>
 #include <stdio.h>
@@ -316,19 +315,19 @@ static void wipeAndFree(char* buf, size_t size)
     VirtualFree(buf, 0, MEM_RELEASE);
 }
 
-// Обчислити геш пароля з сіллю: hash = MD5(salt || password)
-static void hashPassword(const BYTE salt[SALT_SIZE], const char* pwd, size_t pwdLen, BYTE out[HASH_SIZE])
+static bool hashPassword(const BYTE salt[SALT_SIZE], const char* pwd, size_t pwdLen, BYTE out[HASH_SIZE])
 {
-    // Збираємо salt||pwd теж у захищеному буфері
     size_t total = SALT_SIZE + pwdLen;
     char* tmp = allocLockedBuffer(total ? total : 1);
-    if (!tmp) return;
+    if (!tmp)
+        return false;
 
     memcpy(tmp, salt, SALT_SIZE);
     memcpy(tmp + SALT_SIZE, pwd, pwdLen);
     md5((const BYTE*)tmp, total, out);
 
     wipeAndFree(tmp, total ? total : 1);
+    return true;
 }
 
 // ======================================================
@@ -357,9 +356,16 @@ static bool setPassword(BYTE storedHash[HASH_SIZE], BYTE salt[SALT_SIZE])
     else
     {
         randomBytes(salt, SALT_SIZE);                 // унікальна сіль
-        hashPassword(salt, p1, len1, storedHash);     // зберігаємо лише геш + сіль
-        printf("  [+] Пароль встановлено успішно\n");
-        ok = true;
+
+        if (!hashPassword(salt, p1, len1, storedHash))
+        {
+            printf("  [ERROR] Не вдалося обчислити геш\n");
+        }
+        else
+        {
+            printf("  [+] Пароль встановлено успішно\n");
+            ok = true;
+        }
     }
 
     // Затираємо обидва plaintext-буфери одразу після використання
@@ -376,8 +382,14 @@ static bool checkPassword(const BYTE storedHash[HASH_SIZE], const BYTE salt[SALT
     size_t len = readPasswordSecure("Введіть пароль для перевірки: ", p, PWD_MAX);
 
     BYTE h[HASH_SIZE];
-    hashPassword(salt, p, len, h);
-    wipeAndFree(p, PWD_MAX);                           // пароль більше не потрібен — затираємо
+
+    if (!hashPassword(salt, p, len, h))
+    {
+        wipeAndFree(p, PWD_MAX);
+        return false;
+    }
+
+    wipeAndFree(p, PWD_MAX);
 
     bool match = (memcmp(h, storedHash, HASH_SIZE) == 0);
     SecureZeroMemory(h, HASH_SIZE);
