@@ -293,17 +293,17 @@ static void wipeAndFree(char* buf, size_t size)
     VirtualFree(buf, 0, MEM_RELEASE);
 }
 
-static void hashPassword(const BYTE salt[SALT_SIZE], const char* pwd, size_t pwdLen, BYTE out[HASH_SIZE])
+static bool hashPassword(const BYTE salt[SALT_SIZE], const char* pwd, size_t pwdLen, BYTE out[HASH_SIZE])
 {
     size_t total = SALT_SIZE + pwdLen;
     char* tmp = allocLockedBuffer(total ? total : 1);
-    if (!tmp) return;
-
+    if (!tmp) return false;
     memcpy(tmp, salt, SALT_SIZE);
     memcpy(tmp + SALT_SIZE, pwd, pwdLen);
     md5((const BYTE*)tmp, total, out);
 
     wipeAndFree(tmp, total ? total : 1);
+    return true;
 }
 
 
@@ -329,9 +329,16 @@ static bool setPassword(BYTE storedHash[HASH_SIZE], BYTE salt[SALT_SIZE])
     else
     {
         randomBytes(salt, SALT_SIZE);                 // унікальна сіль
-        hashPassword(salt, p1, len1, storedHash);     // зберігаються лише хеш і сіль
-        printf("  [+] Пароль встановлено успішно\n");
-        ok = true;
+
+        if (!hashPassword(salt, p1, len1, storedHash)) // зберігаються лише хеш і сіль
+        {
+            printf("  [ERROR] Не вдалося обчислити геш\n");
+        }
+        else
+        {
+            printf("  [+] Пароль встановлено успішно\n");
+            ok = true;
+        }
     }
 
     // затирання обох буферів з відкритим паролем після використання
@@ -348,8 +355,14 @@ static bool checkPassword(const BYTE storedHash[HASH_SIZE], const BYTE salt[SALT
     size_t len = readPasswordSecure("Введіть пароль для перевірки: ", p, PWD_MAX);
 
     BYTE h[HASH_SIZE];
-    hashPassword(salt, p, len, h);
-    wipeAndFree(p, PWD_MAX);                           // пароль більше не потрібен — затирання буфера
+
+    if (!hashPassword(salt, p, len, h))
+    {
+        wipeAndFree(p, PWD_MAX);
+        return false;
+    }
+
+    wipeAndFree(p, PWD_MAX);                          // пароль більше не потрібен — затирання буфера
 
     bool match = (memcmp(h, storedHash, HASH_SIZE) == 0);
     SecureZeroMemory(h, HASH_SIZE);
